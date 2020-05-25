@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 import Header from './components/Header';
 import Projects from './components/Projects';
+import AddProject from './components/AddProject';
 
 
 class App extends Component {
   state = {
     projects: [
       {
-        id: '1',
+        id: uuidv4(),
         title: `Redesign the Hub's homepage`,
         payRate: 50,
         color: '#f00000',
@@ -18,7 +20,7 @@ class App extends Component {
         notes: ''
       },
       {
-        id: '2',
+        id: uuidv4(),
         title: `Design logo for Nightingale`,
         payRate: 30,
         color: '#f03c00',
@@ -28,7 +30,7 @@ class App extends Component {
         notes: ''
       },
       {
-        id: '3',
+        id: uuidv4(),
         title: 'Build Website',
         payRate: 100,
         color: '#6400f0',
@@ -44,6 +46,7 @@ class App extends Component {
   return (
     <div className="App">
         <Header />
+        <AddProject />
         <Projects projects={this.state.projects}/>
     </div>
   );
