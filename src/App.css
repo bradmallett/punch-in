@@ -93,6 +93,76 @@ a {
 }
 
 
+
+
+
+/*---------------- CREATE PROJECT COMPONENT ------------------*/
+
+
+
+
+.createProjTitle {
+  text-align: center;
+  color: #6b6b6b;
+}
+
+.createProjFormCont {
+  padding: 10px;
+  margin: 10px auto 30px;
+  width: 90vw;
+  max-width: 800px;
+  background-color: #ededed;
+  color: #6b6b6b;
+}
+
+.createProjForm {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.createProjTxt-First {
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  font-size: 1rem;
+  width: 50%;
+}
+
+.createProjTxt {
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  font-size: 1rem;
+}
+
+.colorPickerCont {
+  margin: 0px 10px;
+}
+
+.createProjSubmit {
+  font-size: 1rem;
+  color: #fff;
+  padding: 10px;
+  background-color: #6b6b6b;
+  border: none;
+  margin-left: auto;
+}
+
+.createProjSubmit:hover {
+  background-color: #292929;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
 /*---------------- PHONE SIZES ------------------*/
 
 @media only screen and (max-width: 600px) {
@@ -117,4 +187,36 @@ a {
     align-items: center;
     margin: 10px 0px 0px 0px;
   }
+
+
+
+
+
+  /*---------- CREATE PROJECT COMPONENT ----------*/
+
+  .createProjForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .createProjTxt-First {
+    width: 100%;
+  }
+  
+  .createProjTxt {
+    width: 100%;
+  }
+
+.colorPickerCont {
+    margin: 15px;
+}
+  
+  .createProjSubmit {
+    margin: 10px auto 0px auto;
+    padding: 10px 30px;
+  }
+
+
+
 }
