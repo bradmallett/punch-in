@@ -55,13 +55,20 @@ class App extends Component {
     }, ...this.state.projects] }) 
   }
 
+  delProjItem = (id) => {
+    this.setState( {projects: [...this.state.projects
+      .filter((project) => project.id !== id ) ]} 
+    )
+
+  }
+
 
   render() {
   return (
     <div className="App">
         <Header />
         <AddProject addProject={this.addProject}/>
-        <Projects projects={this.state.projects}/>
+        <Projects projects={this.state.projects} delProjItem={this.delProjItem}/>
     </div>
   );
   }

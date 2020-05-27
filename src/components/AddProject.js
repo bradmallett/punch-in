@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import reactCSS from 'reactcss';
 import { SketchPicker } from 'react-color';
@@ -95,7 +96,7 @@ export class AddProject extends Component {
                             value={this.state.title}
                             onChange={this.onChange}
                         />
-                        <div class="input-icon">
+                        <div className="input-icon">
                             <input
                                 className = 'createProjTxt'
                                 type='number'
@@ -136,6 +137,13 @@ const btnStyle = {
     fill: '#6b6b6b',
     fontSize: '4rem'
 }
+
+
+
+AddProject.propTypes = {
+    addProject: PropTypes.func.isRequired
+}
+
 
 export default AddProject
 
