@@ -172,7 +172,9 @@ a {
   margin: 5px 10px 0px 10px;
 }
 
-
+.colorPickerInner {
+  width: 36px;
+}
 
 
 
@@ -225,7 +227,17 @@ a {
 
 .colorPickerCont {
     margin: 15px;
+    width: 100%;
 }
+
+.colorPickerMid {
+  width: 100%;
+}
+
+.colorPickerInner {
+  width: 100%;
+}
+
 .input-icon {
   width: 100%;
 }
