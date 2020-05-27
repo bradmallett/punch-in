@@ -95,14 +95,18 @@ export class AddProject extends Component {
                             value={this.state.title}
                             onChange={this.onChange}
                         />
-                        <input
-                            className = 'createProjTxt'
-                            type='number'
-                            name='payRate'
-                            placeholder='$0.00/hour'
-                            value={this.state.payRate} 
-                            onChange={this.onChange}
-                        />
+                        <div class="input-icon">
+                            <input
+                                className = 'createProjTxt'
+                                type='number'
+                                name='payRate'
+                                placeholder='0.00'
+                                value={this.state.payRate} 
+                                onChange={this.onChange}
+                            />
+                            <i className='dollarSign'>$</i>
+                            <i className='perHourSign'> / hour</i>
+                        </div>
 
                         <div className='colorPickerCont'>
                             <div style={ styles.swatch } onClick={ this.handleClick }>
