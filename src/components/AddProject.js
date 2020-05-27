@@ -2,25 +2,22 @@ import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import reactCSS from 'reactcss';
 import { SketchPicker } from 'react-color';
+import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
+import IconButton from '@material-ui/core/IconButton';
+
 
 
 export class AddProject extends Component {
     state = {
-            id: uuidv4(),
             title: '',
             payRate: '',
-            punchIns: 0,
-            totalTime: '00:00:00',
-            totalPay: 0.00,
             displayColorPicker: false,
-            color: {
-            r: '241',
-            g: '112',
-            b: '19',
-            a: '1',
-            }
+            color: '#01C4FC'
         }
 
+
+
+    // functions
     handleClick = () => {
         this.setState({ displayColorPicker: !this.state.displayColorPicker })
     };
@@ -30,20 +27,35 @@ export class AddProject extends Component {
     };
 
     handleChange = (color) => {
-        this.setState({ color: color.rgb })
+        this.setState({ color: color.hex })
     };
 
-    onChange = (e) => this.setState( {[e.target.name]: e.target.value} )
+    onChange = (e) => this.setState( {[e.target.name]: e.target.value} );
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.props.addProject(this.state.title, this.state.payRate, this.state.color);
+        this.setState({ 
+            id: uuidv4(),
+            title: '',
+            payRate: '',
+            displayColorPicker: false,
+            color: '#01C4FC'
+        });
+    } 
+
+
 
     render() {
 
+        // Color Picker Styles
         const styles = reactCSS({
             'default': {
               color: {
                 width: '36px',
-                height: '14px',
+                height: '36px',
                 borderRadius: '2px',
-                background: `rgba(${ this.state.color.r }, ${ this.state.color.g }, ${ this.state.color.b }, ${ this.state.color.a })`,
+                background: this.state.color
               },
               swatch: {
                 padding: '5px',
@@ -68,12 +80,13 @@ export class AddProject extends Component {
           });
 
 
+          
         return (
-            <div>
+            <div className='createProjContainer'>
                 <h1 className='createProjTitle'>CREATE NEW PROJECT</h1>
 
                 <div className='createProjFormCont'>
-                    <form className='createProjForm'>
+                    <form onSubmit={this.onSubmit} className='createProjForm'>
                         <input
                             className = 'createProjTxt-First'
                             type='text'
@@ -87,7 +100,7 @@ export class AddProject extends Component {
                             type='number'
                             name='payRate'
                             placeholder='$0.00/hour'
-                            value={this.state.payRate}
+                            value={this.state.payRate} 
                             onChange={this.onChange}
                         />
 
@@ -101,11 +114,10 @@ export class AddProject extends Component {
                             </div> : null }
                         </div>
 
-                        <input 
-                            className='createProjSubmit'
-                            type='submit'
-                            value='Submit'
-                        />
+                        <IconButton type='submit'>
+                            <AddBoxOutlinedIcon style={btnStyle}/>
+                        </IconButton>
+
                     </form>
                 </div>
             </div>
@@ -113,4 +125,10 @@ export class AddProject extends Component {
     }
 }
 
+const btnStyle = {
+    fill: '#6b6b6b',
+    fontSize: '4rem'
+}
+
 export default AddProject
+

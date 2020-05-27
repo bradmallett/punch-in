@@ -42,11 +42,25 @@ class App extends Component {
     ]
   }
 
+  addProject = (title, payRate, color) => {
+    this.setState({ projects: [{
+      id: uuidv4(),
+      title,
+      payRate,
+      color,
+      punchIns: 0,
+      totalTime: '00:00:00',
+      totalPay: 0,
+      notes: ''
+    }, ...this.state.projects] }) 
+  }
+
+
   render() {
   return (
     <div className="App">
         <Header />
-        <AddProject />
+        <AddProject addProject={this.addProject}/>
         <Projects projects={this.state.projects}/>
     </div>
   );
