@@ -139,8 +139,37 @@ a {
   font-size: 1rem;
 }
 
+.input-icon {
+  position: relative;
+}
+
+.dollarSign, .perHourSign {
+  position: absolute;
+  display: block;
+  transform: translate(0, -50%);
+  top: 50%;
+  pointer-events: none;
+  text-align: center;
+  font-style: normal;
+}
+
+.dollarSign {
+  width: 25px;
+  padding-left: 15px;
+}
+
+.perHourSign {
+  padding-right: 15px;
+  right: 5px;
+}
+
+.input-icon > input {
+  padding-left: 25px;
+  padding-right: 0;
+}
+
 .colorPickerCont {
-  margin: 0px 10px;
+  margin: 5px 10px 0px 10px;
 }
 
 
@@ -177,9 +206,6 @@ a {
   }
 
 
-
-
-
   /*---------- CREATE PROJECT COMPONENT ----------*/
 
   .createProjForm {
@@ -194,17 +220,14 @@ a {
   
   .createProjTxt {
     width: 100%;
+    margin: 10px 0px;
   }
 
 .colorPickerCont {
     margin: 15px;
 }
-  /*
-  .createProjSubmit {
-    margin: 10px auto 0px auto;
-    padding: 10px 30px;
-  }
-
-*/
+.input-icon {
+  width: 100%;
+}
 
 }
