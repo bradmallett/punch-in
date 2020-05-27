@@ -99,7 +99,10 @@ a {
 /*---------------- CREATE PROJECT COMPONENT ------------------*/
 
 
-
+.createProjContainer {
+  width: 100%;
+  margin: 80px auto;
+}
 
 .createProjTitle {
   text-align: center;
@@ -139,21 +142,6 @@ a {
 .colorPickerCont {
   margin: 0px 10px;
 }
-
-.createProjSubmit {
-  font-size: 1rem;
-  color: #fff;
-  padding: 10px;
-  background-color: #6b6b6b;
-  border: none;
-  margin-left: auto;
-}
-
-.createProjSubmit:hover {
-  background-color: #292929;
-  cursor: pointer;
-}
-
 
 
 
@@ -211,12 +199,12 @@ a {
 .colorPickerCont {
     margin: 15px;
 }
-  
+  /*
   .createProjSubmit {
     margin: 10px auto 0px auto;
     padding: 10px 30px;
   }
 
-
+*/
 
 }
