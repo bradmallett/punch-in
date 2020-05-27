@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
-import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import QueryBuilderOutlinedIcon from '@material-ui/icons/QueryBuilderOutlined';
 import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
 
 export class ProjectItem extends Component {
 
@@ -10,10 +12,18 @@ export class ProjectItem extends Component {
         const {id, title, color, payRate, punchIns, totalTime, totalPay} = this.props.projectItem;
         return (
             <div className='projectContain'>
-               <div className='projectTopBar'>
-                   <VisibilityOutlinedIcon className='eyeball'/>
-                    <p className='punchInStyle'>PUNCH-ins | <span style={{color: color}}>{punchIns}</span></p>
-                    <CancelOutlinedIcon className='closeIcon'/>
+                <div className='projectTopBar'>
+                    <Tooltip TransitionComponent={Zoom} title="View Project" arrow>
+                        <div>
+                            <VisibilityOutlinedIcon className='eyeball'/>
+                        </div>
+                    </Tooltip>
+                     <p className='punchInStyle'>PUNCH-ins | <span style={{color: color}}>{punchIns}</span></p>
+                     <Tooltip TransitionComponent={Zoom} title="Delete Project" arrow>
+                        <div className='closeIconRight'>
+                            <DeleteOutlineOutlinedIcon className='closeIcon'/>
+                        </div>
+                    </Tooltip>
                </div>
                <div className='titleBar' style={{backgroundColor: color}}>
                    <h2 className='titleText'>{title}</h2>
