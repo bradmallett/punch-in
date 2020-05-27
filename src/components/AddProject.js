@@ -4,7 +4,8 @@ import reactCSS from 'reactcss';
 import { SketchPicker } from 'react-color';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 import IconButton from '@material-ui/core/IconButton';
-
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
 
 
 export class AddProject extends Component {
@@ -52,7 +53,6 @@ export class AddProject extends Component {
         const styles = reactCSS({
             'default': {
               color: {
-                width: '36px',
                 height: '36px',
                 borderRadius: '2px',
                 background: this.state.color
@@ -108,20 +108,23 @@ export class AddProject extends Component {
                             <i className='perHourSign'> / hour</i>
                         </div>
 
-                        <div className='colorPickerCont'>
-                            <div style={ styles.swatch } onClick={ this.handleClick }>
-                                <div style={ styles.color } />
+                        <Tooltip TransitionComponent={Zoom} title="Project Color" arrow>
+                            <div className='colorPickerCont'>
+                                <div className='colorPickerMid' style={ styles.swatch } onClick={ this.handleClick }>
+                                    <div className='colorPickerInner' style={ styles.color } />
+                                </div>
+                                { this.state.displayColorPicker ? <div style={ styles.popover }>
+                                <div style={ styles.cover } onClick={ this.handleClose }/>
+                                    <SketchPicker color={ this.state.color } onChange={ this.handleChange } />
+                                </div> : null }
                             </div>
-                            { this.state.displayColorPicker ? <div style={ styles.popover }>
-                            <div style={ styles.cover } onClick={ this.handleClose }/>
-                                <SketchPicker color={ this.state.color } onChange={ this.handleChange } />
-                            </div> : null }
-                        </div>
+                        </Tooltip>
 
-                        <IconButton type='submit'>
-                            <AddBoxOutlinedIcon style={btnStyle}/>
-                        </IconButton>
-
+                        <Tooltip TransitionComponent={Zoom} title="Create Project" arrow>
+                            <IconButton type='submit'>
+                                <AddBoxOutlinedIcon style={btnStyle}/>
+                            </IconButton>
+                        </Tooltip>
                     </form>
                 </div>
             </div>
