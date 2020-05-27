@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import QueryBuilderOutlinedIcon from '@material-ui/icons/QueryBuilderOutlined';
 import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
+import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 
 export class ProjectItem extends Component {
+
+    delProjForItem = () => {
+        const {delProjItem, projectItem: {id}} = this.props;
+
+        delProjItem(id);
+    }
 
     render() {
         const {id, title, color, payRate, punchIns, totalTime, totalPay} = this.props.projectItem;
@@ -21,7 +29,9 @@ export class ProjectItem extends Component {
                      <p className='punchInStyle'>PUNCH-ins | <span style={{color: color}}>{punchIns}</span></p>
                      <Tooltip TransitionComponent={Zoom} title="Delete Project" arrow>
                         <div className='closeIconRight'>
-                            <DeleteOutlineOutlinedIcon className='closeIcon'/>
+                            <IconButton onClick={this.delProjForItem}>
+                                <DeleteOutlineOutlinedIcon className='closeIcon'/>
+                            </IconButton>
                         </div>
                     </Tooltip>
                </div>
@@ -48,6 +58,11 @@ export class ProjectItem extends Component {
     }
 }
 
+
+ProjectItem.propTypes = {
+    projectItem: PropTypes.object.isRequired,
+    delProjItem: PropTypes.func.isRequired
+}
 
 
 export default ProjectItem
