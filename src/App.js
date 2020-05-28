@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 import Header from './components/Header';
-import Projects from './components/Projects';
-import AddProject from './components/AddProject';
-import PunchInLoop from './components/PunchInLoop';
+import Projects from './components/viewProjects/Projects';
+import AddProject from './components/viewProjects/AddProject';
+import PunchInLoop from './components/viewPunchin/PunchInLoop';
 
 
 
