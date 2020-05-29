@@ -189,6 +189,93 @@ a {
 
 
 
+/*-------- PUNCH-IN && TIME ENTRIES --------*/
+
+.projectContain-PunchIn-Edit {
+  padding: 10px;
+  margin: 20px auto;
+  width: 97vw;
+  background-color: #ededed;
+  color: #6b6b6b;
+}
+
+
+.punchIns-wrapper {
+  background-color: rgb(210, 210, 210);
+  padding: 15px;
+}
+
+.punchIn-entry-contain {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ededed;
+}
+
+.entry-white-contain{
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+}
+
+
+.colorContainIcon {
+  height: 50px;
+   width: 50px;
+   display: flex;
+   justify-content: center; 
+   align-items: center;
+}
+
+.entry-text {
+  margin: 0px 20px;
+}
+
+
+.time-entry-delete-icon:hover {
+  color: black;
+  cursor: pointer;
+}
+
+
+
+/*---------------- TOTALS BOXES ON PUNCHIN ------------------*/
+
+.totalsBox {
+  display: flex;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    align-items: center;
+    margin: 30px auto;
+}
+
+.IconCont-TotalsBox {
+  height: 70px;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.totalsBoxTxt {
+  margin: auto;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
 /*---------------- PHONE SIZES ------------------*/
 
 @media only screen and (max-width: 600px) {
@@ -247,6 +334,26 @@ a {
 
 .input-icon {
   width: 100%;
+}
+
+
+
+/*-------- PUNCH-IN && TIME ENTRIES --------*/
+
+.punchIns-wrapper {
+  margin: 40px 0px;
+  background-color: none;
+  border: 2px solid #a9a9a9;
+}
+
+.punchIn-entry-contain {
+  flex-direction: column;
+  background-color: #ededed00;
+}
+
+.entry-white-contain{
+  width: 100%;
+  margin: 15px 0px;
 }
 
 }

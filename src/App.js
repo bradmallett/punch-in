@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 
 
 class App extends Component {
+
+ 
   state = {
     projects: [{
             id: uuidv4(),
@@ -21,8 +23,10 @@ class App extends Component {
             totalTime: '5:33',
             totalPay: 339.76,
             notes: ''
-          }]
+          }],
+      viewCaller: ''
   }
+
 
   addProject = (title, payRate, color) => {
     this.setState({ projects: [{
@@ -34,12 +38,12 @@ class App extends Component {
       totalTime: '00:00:00',
       totalPay: 0,
       notes: ''
-    }, ...this.state.projects] }) 
+    }, ...this.state.projects], viewCaller: '' }) 
   }
 
   delProjItem = (id) => {
-    this.setState( {projects: [...this.state.projects
-      .filter((project) => project.id !== id ) ]} 
+    this.setState({ projects: [...this.state.projects
+      .filter((project) => project.id !== id ) ], viewCaller: ''} 
     )
 
   }
@@ -52,6 +56,13 @@ class App extends Component {
         margin: '0px 20px 50px'
     }
   }
+
+  setViewCaller = (id) => {
+    this.setState({ projects: [...this.state.projects],
+    viewCaller: id }) 
+  };
+
+
 
   render() {
   return (
@@ -66,13 +77,13 @@ class App extends Component {
                 <h1>NO CURRENT PROJECTS</h1>
                 <p>- ADD PROJECTS ABOVE -</p>
               </div>
-              <Projects projects={this.state.projects} delProjItem={this.delProjItem}/>
+              <Projects projects={this.state.projects} delProjItem={this.delProjItem} setViewCaller={this.setViewCaller}/>
             </React.Fragment>
           )} />
           
           <Route path='/punchin' render={props => (
             <React.Fragment>
-              <PunchInLoop projects={this.state.projects}/>
+              <PunchInLoop projects={this.state.projects} viewCaller={this.state.viewCaller}/>
             </React.Fragment>
           )} />
 

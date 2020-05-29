@@ -18,6 +18,12 @@ export class ProjectItem extends Component {
         delProjItem(id);
     }
 
+    getThisProjId = () => {
+        const {setViewCaller, projectItem: {id}} = this.props;
+        
+        setViewCaller(id);
+    }
+
     render() {
         const {id, title, color, payRate, punchIns, totalTime, totalPay} = this.props.projectItem;
         return (
@@ -25,7 +31,7 @@ export class ProjectItem extends Component {
                 <div className='projectTopBar'>
                     <Tooltip TransitionComponent={Zoom} title="View Project" arrow>
                         <div>
-                            <Link to='/punchin' className='linkColors'>
+                            <Link to='/punchin' className='linkColors' onClick={this.getThisProjId}>
                                     <VisibilityOutlinedIcon className='eyeball'/>
                             </Link>
                         </div>
