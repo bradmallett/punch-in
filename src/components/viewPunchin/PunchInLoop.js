@@ -6,13 +6,16 @@ import PropTypes from 'prop-types';
 
 export class PunchInLoop extends Component {
     render() {
-
-    return this.props.projects.map((project) => (
-            <PunchIn key={project.id} projectItem={project}/>
+    
+    return this.props.projects
+                .filter(project => project.id === this.props.viewCaller)
+                .map((project) => (
+                <PunchIn key={project.id} projectItem={project} viewCaller={this.props.viewCaller}/>
             ))
-            
     }
 }
+
+
 
 
 PunchInLoop.propTypes = {
