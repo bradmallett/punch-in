@@ -7,6 +7,8 @@ import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
+import { Link } from 'react-router-dom';
+
 
 export class ProjectItem extends Component {
 
@@ -23,7 +25,9 @@ export class ProjectItem extends Component {
                 <div className='projectTopBar'>
                     <Tooltip TransitionComponent={Zoom} title="View Project" arrow>
                         <div>
-                            <VisibilityOutlinedIcon className='eyeball'/>
+                            <Link to='/punchin' className='linkColors'>
+                                    <VisibilityOutlinedIcon className='eyeball'/>
+                            </Link>
                         </div>
                     </Tooltip>
                      <p className='punchInStyle'>PUNCH-ins | <span style={{color: color}}>{punchIns}</span></p>

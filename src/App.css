@@ -13,6 +13,11 @@ a {
   text-decoration: none;
 }
 
+.linkColors {
+  color: #6b6b6b;
+  cursor: pointer;
+}
+
 
 /*-------- PROJECT LISTS --------*/
 
@@ -29,6 +34,7 @@ a {
   width: 100%;
   padding: 10px;
   display: flex;
+  align-items: center;
 }
 
 .punchInStyle {

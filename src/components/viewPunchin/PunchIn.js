@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TimeEntriesLoop from './TimeEntriesLoop';
 import { v4 as uuidv4 } from 'uuid';
+import { Link } from 'react-router-dom';
 
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import QueryBuilderOutlinedIcon from '@material-ui/icons/QueryBuilderOutlined';
 import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
+
+
 
 export class PunchIn extends Component {
 
@@ -50,6 +54,13 @@ export class PunchIn extends Component {
         return (
             <div className='projectContain'>
                 <div className='projectTopBar'>
+                    <Tooltip TransitionComponent={Zoom} title="Back to Projects" arrow>
+                        <div>
+                            <Link to='/' className='linkColors'>
+                                    <HomeOutlinedIcon className='eyeball'/>
+                            </Link>
+                        </div>
+                    </Tooltip>
                      <p className='punchInStyle'>PUNCH-ins | <span style={{color: color}}>{punchIns}</span></p>
                      <Tooltip TransitionComponent={Zoom} title="Delete Project" arrow>
                         <div className='closeIconRight'>
