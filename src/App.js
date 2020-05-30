@@ -6,8 +6,6 @@ import Header from './components/Header';
 import Projects from './components/viewProjects/Projects';
 import AddProject from './components/viewProjects/AddProject';
 import PunchInLoop from './components/viewPunchin/PunchInLoop';
-import { Link } from 'react-router-dom';
-
 
 
 class App extends Component {
@@ -86,9 +84,6 @@ class App extends Component {
               <PunchInLoop projects={this.state.projects} viewCaller={this.state.viewCaller}/>
             </React.Fragment>
           )} />
-
-
-          
       </div>
     </Router>
   );
