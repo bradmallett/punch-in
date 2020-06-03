@@ -63,7 +63,7 @@ export class PunchIn extends Component {
 
 PunchIn.propTypes = {
     projectItem: PropTypes.object.isRequired,
-    key: PropTypes.string.isRequired
+    props: PropTypes.object.isRequired
 }
 
 export default PunchIn
