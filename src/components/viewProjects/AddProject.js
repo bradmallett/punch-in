@@ -49,7 +49,7 @@ export class AddProject extends Component {
 
 
     render() {
-
+        
         // Color Picker Styles
         const styles = reactCSS({
             'default': {
@@ -79,7 +79,6 @@ export class AddProject extends Component {
               },
             },
           });
-
 
           
         return (

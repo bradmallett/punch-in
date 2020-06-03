@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import QueryBuilderOutlinedIcon from '@material-ui/icons/QueryBuilderOutlined';
 import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
@@ -23,4 +24,11 @@ export default function MainProjBottomBar({projectItem}) {
             </div>
         </div> 
     )
+}
+
+
+
+
+MainProjBottomBar.propTypes = {
+    projectItem: PropTypes.object.isRequired
 }

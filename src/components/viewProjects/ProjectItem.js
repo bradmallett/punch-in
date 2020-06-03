@@ -8,12 +8,10 @@ import MainProjBottomBar from './MainProjBottomBar';
 export class ProjectItem extends Component {
 
     render() {
-        const {title, color, payRate, totalTime, totalPay} = this.props.projectItem;
         return (
             <div className='projectContain'>
                 <MainProjTopBar 
-                    projectItem={this.props.projectItem} 
-                    setViewCaller={this.props.setViewCaller} 
+                    projectItem={this.props.projectItem}
                     delProjItem={this.props.delProjItem} 
                 />
                 <MainProjTitleBar projectItem={this.props.projectItem} />
@@ -25,9 +23,11 @@ export class ProjectItem extends Component {
 }
 
 ProjectItem.propTypes = {
+    key: PropTypes.string.isRequired,
     projectItem: PropTypes.object.isRequired,
     delProjItem: PropTypes.func.isRequired
 }
 
 
 export default ProjectItem
+

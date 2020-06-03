@@ -14,4 +14,3 @@ export class TimeEntriesLoop extends Component {
 
 export default TimeEntriesLoop
 
-

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 import Header from './components/Header';
@@ -10,7 +10,6 @@ import PunchInLoop from './components/viewPunchin/PunchInLoop';
 
 class App extends Component {
 
- 
   state = {
     projects: [{
             id: uuidv4(),
@@ -21,8 +20,7 @@ class App extends Component {
             totalTime: '5:33',
             totalPay: 339.76,
             notes: ''
-          }],
-      viewCaller: ''
+          }]
   }
 
 
@@ -36,12 +34,12 @@ class App extends Component {
       totalTime: '00:00:00',
       totalPay: 0,
       notes: ''
-    }, ...this.state.projects], viewCaller: '' }) 
+    }, ...this.state.projects] }) 
   }
 
   delProjItem = (id) => {
     this.setState({ projects: [...this.state.projects
-      .filter((project) => project.id !== id ) ], viewCaller: ''} 
+      .filter((project) => project.id !== id ) ]} 
     )
 
   }
@@ -55,35 +53,34 @@ class App extends Component {
     }
   }
 
-  setViewCaller = (id) => {
-    this.setState({ projects: [...this.state.projects],
-    viewCaller: id }) 
-  };
-
-
 
   render() {
   return (
     <Router>
       <div className="App">
-          <Header />
+        <Header />
+        <Switch>
 
-          <Route exact path='/' render={props => (
-            <React.Fragment>
-              <AddProject addProject={this.addProject}/>
-              <div style={this.noProjStyle()}>
-                <h1>NO CURRENT PROJECTS</h1>
-                <p>- ADD PROJECTS ABOVE -</p>
-              </div>
-              <Projects projects={this.state.projects} delProjItem={this.delProjItem} setViewCaller={this.setViewCaller}/>
-            </React.Fragment>
-          )} />
-          
-          <Route path='/punchin' render={props => (
-            <React.Fragment>
-              <PunchInLoop projects={this.state.projects} viewCaller={this.state.viewCaller}/>
-            </React.Fragment>
-          )} />
+            {/* ALL PROJECTS LISTING */}
+            <Route exact path='/' render={props => (
+              <React.Fragment>
+                <AddProject addProject={this.addProject}/>
+                <div style={this.noProjStyle()}>
+                  <h1>NO CURRENT PROJECTS</h1>
+                  <p>- ADD PROJECTS ABOVE -</p>
+                </div>
+                <Projects projects={this.state.projects} delProjItem={this.delProjItem}/>
+              </React.Fragment>
+            )} />
+
+            {/* PROJECT DETAILS PAGE */}
+            <Route path='/punchin/:projectID' render={props => (
+              <React.Fragment>
+                <PunchInLoop  props={props} projects={this.state.projects}/>
+              </React.Fragment>
+            )} />
+
+        </Switch>
       </div>
     </Router>
   );

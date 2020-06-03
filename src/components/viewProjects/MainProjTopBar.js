@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
@@ -8,11 +9,8 @@ import Zoom from '@material-ui/core/Zoom';
 import { Link } from 'react-router-dom';
 
 
-export default function MainProjTopBar({projectItem, setViewCaller, delProjItem}) {
+export default function MainProjTopBar({projectItem, delProjItem}) {
     const {id, color, punchIns} = projectItem;
-
-    const getThisProjId = () => setViewCaller(id);
-    
     const delProjForItem = () => delProjItem(id);
     
 
@@ -20,7 +18,7 @@ export default function MainProjTopBar({projectItem, setViewCaller, delProjItem}
         <div className='projectTopBar'>
             <Tooltip TransitionComponent={Zoom} title="View Project" arrow>
                 <div>
-                    <Link to='/punchin' className='linkColors' onClick={getThisProjId}>
+                    <Link to={`/punchin/:${id}`} className='linkColors'>
                             <VisibilityOutlinedIcon className='eyeball'/>
                     </Link>
                 </div>
@@ -35,4 +33,10 @@ export default function MainProjTopBar({projectItem, setViewCaller, delProjItem}
             </Tooltip>
         </div>
     )
+}
+
+
+MainProjTopBar.propTypes = {
+    projectItem: PropTypes.object.isRequired,
+    delProjItem: PropTypes.func.isRequired
 }

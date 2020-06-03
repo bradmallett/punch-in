@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
+
 
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
@@ -29,4 +31,9 @@ export default function ViewProjTopBar({projectItem}) {
             </Tooltip>
         </div>
     )
+}
+
+
+ViewProjTopBar.propTypes = {
+    projectItem: PropTypes.object.isRequired
 }

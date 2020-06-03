@@ -1,6 +1,7 @@
 import React from 'react';
 import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
 import QueryBuilderOutlinedIcon from '@material-ui/icons/QueryBuilderOutlined';
+import PropTypes from 'prop-types';
 
 
 export default function ViewProjTotalsBox({projectItem}) {
@@ -22,4 +23,11 @@ export default function ViewProjTotalsBox({projectItem}) {
             </div>
         </div>
     )
+}
+
+
+
+
+ViewProjTotalsBox.propTypes = {
+    projectItem: PropTypes.object.isRequired
 }
