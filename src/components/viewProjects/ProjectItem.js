@@ -23,7 +23,6 @@ export class ProjectItem extends Component {
 }
 
 ProjectItem.propTypes = {
-    key: PropTypes.string.isRequired,
     projectItem: PropTypes.object.isRequired,
     delProjItem: PropTypes.func.isRequired
 }
