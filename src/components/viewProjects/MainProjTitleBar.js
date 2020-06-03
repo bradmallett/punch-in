@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 
 export default function MainProjTitleBar({projectItem}) {
@@ -11,4 +12,9 @@ export default function MainProjTitleBar({projectItem}) {
         </div> 
 
     )
+}
+
+
+MainProjTitleBar.propTypes = {
+    projectItem: PropTypes.object.isRequired
 }

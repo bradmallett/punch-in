@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
+
 
 export default function ViewProjTitleBar({projectItem}) {
     const {color, title, payRate} = projectItem;
@@ -9,4 +11,9 @@ export default function ViewProjTitleBar({projectItem}) {
             <p className='projectsPayRate'>${payRate} / hour</p>
         </div>
     )
+}
+
+
+ViewProjTitleBar.propTypes = {
+    projectItem: PropTypes.object.isRequired
 }

@@ -43,7 +43,6 @@ export class PunchIn extends Component {
 
     render() {
         const {title, color, payRate, punchIns, totalTime, totalPay} = this.props.projectItem;
-        
 
         return (
             <div className='projectContain-PunchIn-Edit'>
@@ -63,7 +62,8 @@ export class PunchIn extends Component {
 
 
 PunchIn.propTypes = {
-    projectItem: PropTypes.object.isRequired
+    projectItem: PropTypes.object.isRequired,
+    key: PropTypes.string.isRequired
 }
 
 export default PunchIn
