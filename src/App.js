@@ -23,6 +23,43 @@ class App extends Component {
           }]
   }
 
+  // Example for adding notes
+  addNotes = async (id, notes) => {
+    // This would probably call the server to update the project so you would make something
+    // ...that does a PUT request to the server:
+    // So first get the project to update:
+    const updatedProject = this.state.projects.slice()
+      .find((project) => project.id === id);
+
+    // Then, update it:
+    updatedProject.notes = notes;
+
+    // Then make the PUT request to the server:
+    await fetch(`/projects/${id}/update`, {
+      headers: {'Content-Type': 'application/json'},
+      method: 'PUT',
+      body: JSON.stringify(updatedProject)
+    });
+
+    // Then the projects would just be updated and re-fetched from the server and populated in state
+
+    // But, for the sake of not having a back end yet, you can just do this:
+    // Get the copy of state
+    const projects = this.state.projects.slice();
+
+    // Get the project with ${id}
+    const index = projects.map(({id}) => id).indexOf(id);
+
+    // Get the project you want to update
+    const updatedProject = projects[index];
+
+    // update it
+    updatedProject.notes = notes;
+
+    // Set state with copy
+    this.setState({projects});
+  };
+
 
   addProject = (title, payRate, color) => {
     this.setState({ projects: [{
