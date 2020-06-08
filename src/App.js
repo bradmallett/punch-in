@@ -16,20 +16,53 @@ class App extends Component {
             title: `Redesign the Hub's homepage`,
             payRate: 50,
             color: '#f00000',
-            punchIns: 5,
+            punchIns: 2,
             totalTime: '5:33',
             totalPay: 339.76,
-            notes: `Project 1 notes`
+            notes: `Project 1 notes`,
+            timeEntries: [
+                { id: uuidv4(),
+                  date: '1/1/2020',
+                  timeStart: '8:35',
+                  timeEnd: '9:35',
+                  timeEntryTotal: '1:00:00',
+                  timeEntryPay: 50
+                },
+                { id: uuidv4(),
+                date: '1/2/2020',
+                timeStart: '9:35',
+                timeEnd: '11:35',
+                timeEntryTotal: '2:00:00',
+                timeEntryPay: 100
+                }
+              ]
           },
+          
           {
             id: uuidv4(),
             title: `Feed Venus`,
             payRate: 50,
             color: '#000',
-            punchIns: 5,
+            punchIns: 2,
             totalTime: '5:33',
             totalPay: 339.76,
-            notes: ''
+            notes: 'Project 2 notes',
+            timeEntries: [
+                { id: uuidv4(),
+                  date: '1/12/2021',
+                  timeStart: '8:35',
+                  timeEnd: '9:35',
+                  timeEntryTotal: '1:00:00',
+                  timeEntryPay: 50
+                },
+                { id: uuidv4(),
+                date: '1/22/2021',
+                timeStart: '9:35',
+                timeEnd: '11:35',
+                timeEntryTotal: '2:00:00',
+                timeEntryPay: 100
+                }
+            ]
           }]
   }
 
