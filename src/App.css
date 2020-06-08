@@ -266,9 +266,42 @@ a {
     font-weight: bold;
 }
 
+.notesContainer {
+  width: 100%;
+  max-width: 900px;
+  margin: 50px auto;
+}
 
+.notesTitle {
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  padding: 10px 0px;
+  margin: 0;
+}
 
+.notesTxtArea {
+  width: 100%;
+  font-size: 1rem;
+  padding: 10px;
+  margin: 0;
+  font-family: cursive;
+  
+}
 
+.saveNotes {
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: rgb(54, 54, 54);
+  cursor: pointer;
+  border: none;
+}
+
+.saveNotes:hover {
+  background-color: rgb(39, 39, 39);
+}
 
 
 
