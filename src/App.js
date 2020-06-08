@@ -19,6 +19,16 @@ class App extends Component {
             punchIns: 5,
             totalTime: '5:33',
             totalPay: 339.76,
+            notes: `Project 1 notes`
+          },
+          {
+            id: uuidv4(),
+            title: `Feed Venus`,
+            payRate: 50,
+            color: '#000',
+            punchIns: 5,
+            totalTime: '5:33',
+            totalPay: 339.76,
             notes: ''
           }]
   }
@@ -54,6 +64,20 @@ class App extends Component {
   }
 
 
+  addNotes = (id, notes) => {
+    const index = this.state.projects.map((project) => project.id).indexOf(id);
+    const newProj = this.state.projects[index];
+    newProj.notes = notes;
+    const newProjects = [...this.state.projects];
+    newProjects[index] = newProj;
+
+    this.setState({ projects: newProjects })
+  }
+
+
+
+
+
   render() {
   return (
     <Router>
@@ -76,7 +100,7 @@ class App extends Component {
             {/* PROJECT DETAILS PAGE */}
             <Route path='/punchin/:projectID' render={props => (
               <React.Fragment>
-                <PunchInLoop  props={props} projects={this.state.projects}/>
+                <PunchInLoop  props={props} projects={this.state.projects} addNotes={this.addNotes}/>
               </React.Fragment>
             )} />
 

@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import ViewProjTopBar from './ViewProjTopBar';
 import ViewProjTitleBar from './ViewProjTitleBar';
 import ViewProjTotalsBox from './ViewProjTotalsBox';
+import Notes from './Notes';
 
 
 export class PunchIn extends Component {
@@ -35,14 +36,13 @@ export class PunchIn extends Component {
                     timeEntryTotal: '3:00:00',
                     timeEntryPay: 150
                 }
-            ],
-            notes: 'My notes'
+            ]
         }
       }
 
 
     render() {
-        const {title, color, payRate, punchIns, totalTime, totalPay} = this.props.projectItem;
+        const {color} = this.props.projectItem;
 
         return (
             <div className='projectContain-PunchIn-Edit'>
@@ -55,6 +55,8 @@ export class PunchIn extends Component {
 
             <ViewProjTotalsBox projectItem={this.props.projectItem}/>
 
+            <Notes projectItem={this.props.projectItem} addNotes={this.props.addNotes}/>
+
             </div>
         )
     }
@@ -63,7 +65,7 @@ export class PunchIn extends Component {
 
 PunchIn.propTypes = {
     projectItem: PropTypes.object.isRequired,
-    props: PropTypes.object.isRequired
+    addNotes: PropTypes.func.isRequired
 }
 
 export default PunchIn

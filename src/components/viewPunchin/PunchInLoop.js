@@ -10,7 +10,7 @@ export class PunchInLoop extends Component {
         return this.props.projects
             .filter((project) => `:${project.id}` === projectID )
             .map((projectItem) => (
-                <PunchIn key={projectItem.id} projectItem={projectItem}/>
+                <PunchIn key={projectItem.id} projectItem={projectItem} addNotes={this.props.addNotes}/>
             ))
     }
 }
@@ -18,7 +18,7 @@ export class PunchInLoop extends Component {
 
 PunchInLoop.propTypes = {
     projects: PropTypes.array.isRequired,
-    props: PropTypes.object.isRequired
+    addNotes: PropTypes.func.isRequired
 }
 
 export default PunchInLoop
