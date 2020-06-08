@@ -289,21 +289,30 @@ a {
   
 }
 
-.saveNotes {
+.notesSaved, .saveNotes {
   padding: 10px;
   font-size: 1rem;
   font-weight: bold;
   color: #fff;
-  background-color: rgb(54, 54, 54);
   cursor: pointer;
   border: none;
+}
+
+.notesSaved {
+  background-color: rgb(4, 185, 74);
+}
+
+.notesSaved:hover {
+  background-color: rgb(39, 39, 39);
+}
+
+.saveNotes {
+  background-color: rgb(189, 39, 2);
 }
 
 .saveNotes:hover {
   background-color: rgb(39, 39, 39);
 }
-
-
 
 
 

@@ -4,18 +4,21 @@ import PropTypes from 'prop-types';
 export class Notes extends Component {
 
     state = {
-        notes: this.props.projectItem.notes
+        notes: this.props.projectItem.notes,
+        notesSaved: true
     }
 
-    onChange = (e) => this.setState( {notes: e.target.value} );
+    onChange = (e) => this.setState( {notes: e.target.value, notesSaved: false} );
 
     onSubmit = (e) => {
         e.preventDefault();
         this.props.addNotes(this.props.projectItem.id,this.state.notes);
         this.setState({ 
-            notes: this.props.projectItem.notes
+            notes: this.props.projectItem.notes,
+            notesSaved: true
         });
     } 
+
 
     render() {
 
@@ -34,6 +37,13 @@ export class Notes extends Component {
                             >
                         </textarea>
                         <input 
+                            style = {{ display: this.state.notesSaved ? 'block': 'none' }}
+                            type='submit'
+                            value='NOTES SAVED'
+                            className='notesSaved'
+                        />
+                        <input 
+                            style = {{ display: !this.state.notesSaved ? 'block': 'none' }}
                             type='submit'
                             value='SAVE NOTES'
                             className='saveNotes'
