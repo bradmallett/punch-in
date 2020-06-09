@@ -5,6 +5,7 @@ import ViewProjTopBar from './ViewProjTopBar';
 import ViewProjTitleBar from './ViewProjTitleBar';
 import ViewProjTotalsBox from './ViewProjTotalsBox';
 import Notes from './Notes';
+import StopWatch from './StopWatch';
 
 
 export class PunchIn extends Component {
@@ -18,6 +19,8 @@ export class PunchIn extends Component {
             <ViewProjTopBar projectItem={this.props.projectItem}/>
 
             <ViewProjTitleBar projectItem={this.props.projectItem}/>
+
+            <StopWatch projectItem={this.props.projectItem}/>
 
             <TimeEntriesLoop timeEntries={this.props.projectItem.timeEntries} color={color}/>
 
