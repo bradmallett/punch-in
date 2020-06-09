@@ -318,6 +318,63 @@ a {
 
 
 
+/*-----STOPWATCH----------*/
+
+
+.stopwatch-contain {
+  width: 50%;
+  max-width: 900px;
+  margin: 30px auto;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 10px;
+}
+
+.stopwatch-start, .stopwatch-stop {
+  padding: 20px;
+  color: #fff;
+  margin-left: auto;
+  font-weight: bold;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.stopwatch-start {
+  background-color: rgb(4, 185, 74);
+}
+
+.stopwatch-stop {
+  animation: color-change 1.5s infinite;
+  border: 5px solid rgba(255, 255, 255, 0);
+}
+
+@keyframes color-change {
+  0% { background-color: rgb(189, 39, 2); }
+  50% { background-color: rgb(250, 75, 31); }
+  100% { background-color: rgb(189, 39, 2); }
+}
+
+.stopwatch-start:hover, .stopwatch-stop:hover {
+  background-color: rgb(39, 39, 39);
+}
+
+.stopwatch-stop:hover {
+  border: 5px solid rgb(253, 90, 49);
+}
+
+.timer-txt {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+
+
+
+
+
+
 /*---------------- PHONE SIZES ------------------*/
 
 @media only screen and (max-width: 600px) {
