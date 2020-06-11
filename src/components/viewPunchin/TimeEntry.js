@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import EventOutlinedIcon from '@material-ui/icons/EventOutlined';
 import QueryBuilderOutlinedIcon from '@material-ui/icons/QueryBuilderOutlined';
+import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 
@@ -25,14 +26,14 @@ export class TimeEntry extends Component {
                         <div className='colorContainIcon' style={{backgroundColor: color}}>
                             <QueryBuilderOutlinedIcon style={{fontSize: '2rem', color: '#fff'}}/>
                         </div>
-                        <p className='entry-text'>{timeStart} - {timeEnd} | Time: {timeEntryTotal}</p>
+                        <p className='entry-text'>{timeStart} - {timeEnd} | {timeEntryTotal}</p>
                     </div>
 
                     <div className='entry-white-contain'>
                         <div className='colorContainIcon' style={{backgroundColor: color}}>
-                            <EventOutlinedIcon style={{fontSize: '2rem', color: '#fff'}}/>
+                            <AttachMoneyOutlinedIcon style={{fontSize: '2rem', color: '#fff'}}/>
                         </div>
-                        <p className='entry-text'>$55.00</p>
+                    <p className='entry-text'>{`$${timeEntryPay}`}</p>
                     </div>
 
                     <div className='entryDelete-contain'>

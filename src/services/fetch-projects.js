@@ -1,3 +1,4 @@
+
 export const fetchProjects = async () => {
     // would typically call await fetch(someUrl) to get the projects and return them.
     // But for now, we'll fake it

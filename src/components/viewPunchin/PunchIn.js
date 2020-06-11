@@ -20,7 +20,7 @@ export class PunchIn extends Component {
 
             <ViewProjTitleBar projectItem={this.props.projectItem}/>
 
-            <StopWatch projectItem={this.props.projectItem}/>
+            <StopWatch projectItem={this.props.projectItem} addTimeEntry={this.props.addTimeEntry}/>
 
             <TimeEntriesLoop timeEntries={this.props.projectItem.timeEntries} color={color}/>
 
