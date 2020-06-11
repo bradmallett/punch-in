@@ -11,7 +11,7 @@ import StopWatch from './StopWatch';
 export class PunchIn extends Component {
 
     render() {
-        const {color} = this.props.projectItem;
+        const {color, id} = this.props.projectItem;
 
         return (
             <div className='projectContain-PunchIn-Edit'>
@@ -22,7 +22,12 @@ export class PunchIn extends Component {
 
             <StopWatch projectItem={this.props.projectItem} addTimeEntry={this.props.addTimeEntry}/>
 
-            <TimeEntriesLoop timeEntries={this.props.projectItem.timeEntries} color={color}/>
+            <TimeEntriesLoop 
+                timeEntries={this.props.projectItem.timeEntries} 
+                color={color} 
+                delTimeEntry={this.props.delTimeEntry}
+                projID={id}
+            />
 
             <ViewProjTotalsBox projectItem={this.props.projectItem}/>
 
