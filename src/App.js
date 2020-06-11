@@ -30,7 +30,8 @@ class App extends Component {
       punchIns: 0,
       totalTime: '00:00:00',
       totalPay: 0,
-      notes: ''
+      notes: '',
+      timeEntries: []
     }, ...this.state.projects] }) 
   }
 
@@ -62,6 +63,23 @@ class App extends Component {
   }
 
 
+  addTimeEntry = (id, date, start, stop, totalTime, totalPay) => {
+    const newProjects = [...this.state.projects];
+    const index = this.state.projects.map((project) => project.id).indexOf(id);
+    const newProj = this.state.projects[index];
+    const newTimeEntry = {
+      id: uuidv4(),
+      date, 
+      timeStart: start, 
+      timeEnd: stop, 
+      timeEntryTotal: totalTime, 
+      timeEntryPay: totalPay
+    }
+    newProj.timeEntries = [newTimeEntry, ...newProj.timeEntries];
+    newProjects[index] = newProj;
+
+    this.setState({ projects: newProjects })
+  }
 
 
 
@@ -87,7 +105,11 @@ class App extends Component {
             {/* PROJECT DETAILS PAGE */}
             <Route path='/punchin/:projectID' render={props => (
               <React.Fragment>
-                <PunchInLoop  props={props} projects={this.state.projects} addNotes={this.addNotes}/>
+                <PunchInLoop  
+                  props={props} 
+                  projects={this.state.projects} 
+                  addNotes={this.addNotes} 
+                  addTimeEntry={this.addTimeEntry}/>
               </React.Fragment>
             )} />
 

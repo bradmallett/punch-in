@@ -6,55 +6,69 @@ export class StopWatch extends Component {
     state = {
         watchRunning: false,
         timer: '00:00:00',
-        startTimestamp: null
+        startTime: null,
+        date: 'no-date',
+        timeEntryPay: 0
     }
 
-    startWatch = () => {
-        const startClock = moment();
-        this.setState({ 
-            watchRunning: true, 
-            timer: this.state.timer, 
-            startTimestamp: startClock 
-        });
 
-        const timerStart = startClock.startOf("day")
+    getEntryPay = () => {
+        const payRate = this.props.projectItem.payRate;
+        const myMin = Math.floor(moment.duration(this.state.timer).asMinutes());
+        const timeEntryPay = (payRate / 60) * myMin;
+        
+        return timeEntryPay;
+    }
+
+
+
+    startWatch = () => {
+        const startTimestamp = moment();
+        const startTime = moment().format('h:mma');
+        const timerStart = startTimestamp.startOf("day");
+        const startDate = startTimestamp.format('MMM/D/YYYY');
+
+        this.setState((prevState) => ({
+            ...prevState,
+            watchRunning: true,
+            startTime: startTime,
+            date: startDate
+        }));
 
         this.interval = setInterval(() => { 
             const timer = timerStart.add(1, 'second').format('HH:mm:ss');
-            
-            this.setState({ 
-                watchRunning: true,
-                timer: timer, 
-                startTimestamp: startClock 
-            });
-        
+
+            this.setState((prevState) => ({
+                ...prevState,
+                timer: timer
+            }));
         }, 1000);   
     }
 
-    stopWatch = () => {
-        this.setState((prevState) => ({
-            ...prevState,
-            watchRunning: false
-        }));
 
+
+    stopWatch = () => {
+        const date = this.state.date;
+        const startTime = this.state.startTime;
+        const stopTime = moment().format('h:mma');
+        const timeEntryPay = this.getEntryPay();
+        const {id} = this.props.projectItem;
+        const totalTime = this.state.timer;
+
+        this.props.addTimeEntry(id, date, startTime, stopTime, totalTime, timeEntryPay);
+        
         clearInterval(this.interval);
 
-        this.addNewEntry();
+        this.setState({ 
+            watchRunning: false,
+            timer: '00:00:00',
+            startTimestamp: null,
+            date: '',
+            timeEntryPay: 0 
+        }) 
     }
 
-    /*
-{ id: uuidv4(),
-    date: '1/1/2020',
-    timeStart: '8:35',
-    timeEnd: '9:35',
-    timeEntryTotal: '1:00:00',
-    timeEntryPay: 50
-},
-*/
-    addNewEntry = () => {
-        // construct the object
-        // send er up
-    }
+
 
 
     render() {
