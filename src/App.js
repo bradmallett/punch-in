@@ -35,12 +35,6 @@ class App extends Component {
     }, ...this.state.projects] }) 
   }
 
-  delProjItem = (id) => {
-    this.setState({ projects: [...this.state.projects
-      .filter((project) => project.id !== id ) ]} 
-    )
-
-  }
 
   noProjStyle = () => {
     return {
@@ -75,12 +69,30 @@ class App extends Component {
       timeEntryTotal: totalTime, 
       timeEntryPay: totalPay
     }
+
     newProj.timeEntries = [newTimeEntry, ...newProj.timeEntries];
     newProjects[index] = newProj;
-
     this.setState({ projects: newProjects })
   }
 
+
+  delProjItem = (id) => {
+    this.setState({ projects: [...this.state.projects
+      .filter((project) => project.id !== id ) ]} 
+    )
+  }
+
+
+  delTimeEntry = (projID, entryID) => {
+    const newProjects = [...this.state.projects];
+    const index = this.state.projects.map((project) => project.id).indexOf(projID);
+    const newProj = newProjects[index];
+    const newEntries = newProj.timeEntries.filter(entry => entry.id !== entryID);
+   
+    newProj.timeEntries = newEntries;
+    newProjects[index] = newProj;
+    this.setState({ projects: newProjects })
+  }
 
 
   render() {
@@ -109,7 +121,8 @@ class App extends Component {
                   props={props} 
                   projects={this.state.projects} 
                   addNotes={this.addNotes} 
-                  addTimeEntry={this.addTimeEntry}/>
+                  addTimeEntry={this.addTimeEntry}
+                  delTimeEntry={this.delTimeEntry}/>
               </React.Fragment>
             )} />
 

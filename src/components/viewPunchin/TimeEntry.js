@@ -3,12 +3,18 @@ import EventOutlinedIcon from '@material-ui/icons/EventOutlined';
 import QueryBuilderOutlinedIcon from '@material-ui/icons/QueryBuilderOutlined';
 import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import IconButton from '@material-ui/core/IconButton';
+
 
 
 export class TimeEntry extends Component {
 
+    
+
+    delTimeEntryItem = () => this.props.delTimeEntry(this.props.projID, this.props.entryItem.id);
+
     render() {
-        const {id, date, timeStart, timeEnd, timeEntryTotal, timeEntryPay} = this.props.entryItem;
+        const {date, timeStart, timeEnd, timeEntryTotal, timeEntryPay} = this.props.entryItem;
         const {color} = this.props;
 
         return (
@@ -37,8 +43,12 @@ export class TimeEntry extends Component {
                     </div>
 
                     <div className='entryDelete-contain'>
-                        <DeleteOutlineOutlinedIcon className='time-entry-delete-icon' style={delIconStyle}/>
+                        <IconButton onClick={this.delTimeEntryItem}>
+                            <DeleteOutlineOutlinedIcon className='time-entry-delete-icon' style={delIconStyle}/>
+                        </IconButton>
                     </div>
+
+
                 </div>
             </div>
         )
