@@ -16,7 +16,7 @@ export class PunchIn extends Component {
         return (
             <div className='projectContain-PunchIn-Edit'>
 
-            <ViewProjTopBar projectItem={this.props.projectItem}/>
+            <ViewProjTopBar projectItem={this.props.projectItem} delProjItem={this.props.delProjItem}/>
 
             <ViewProjTitleBar projectItem={this.props.projectItem}/>
 

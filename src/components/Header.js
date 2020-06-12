@@ -6,7 +6,7 @@ export default function Header() {
     return (
         <header style={headerStyle}>
             <h1>PUNCH IN APP</h1>
-            <Link style={linkStyle} to='/'>HOME</Link>
+            <Link style={linkStyle} to='/'>ALL PROJECTS</Link>
         </header>
     )
 }

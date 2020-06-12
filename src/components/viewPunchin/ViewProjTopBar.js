@@ -9,8 +9,12 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import { Link } from 'react-router-dom';
 
-export default function ViewProjTopBar({projectItem}) {
-    const {color, punchIns} = projectItem;
+
+export default function ViewProjTopBar({projectItem, delProjItem}) {
+    const {color, punchIns, id} = projectItem;
+
+    const delProjForItem = () => delProjItem(id);
+    
 
     return (
         <div className='projectTopBar'>
@@ -22,16 +26,21 @@ export default function ViewProjTopBar({projectItem}) {
                 </div>
             </Tooltip>
                 <p className='punchInStyle'>PUNCH-ins | <span style={{color: color}}>{punchIns}</span></p>
+            <Link to='/' className='closeIconRight'>
                 <Tooltip TransitionComponent={Zoom} title="Delete Project" arrow>
-                <div className='closeIconRight'>
-                    <IconButton>
-                        <DeleteOutlineOutlinedIcon className='closeIcon'/>
-                    </IconButton>
-                </div>
-            </Tooltip>
+                        <IconButton onClick={delProjForItem}>
+                            <DeleteOutlineOutlinedIcon className='closeIcon'/>
+                        </IconButton>
+                </Tooltip>
+            </Link>
         </div>
     )
 }
+
+
+
+
+
 
 
 ViewProjTopBar.propTypes = {
