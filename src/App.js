@@ -7,13 +7,95 @@ import Projects from './components/viewProjects/Projects';
 import AddProject from './components/viewProjects/AddProject';
 import PunchInLoop from './components/viewPunchin/PunchInLoop';
 import {fetchProjects} from './services/fetch-projects';
+import moment from 'moment';
+
 
 
 class App extends Component {
 
   state = {
-    projects: []
+    projects: [],
+    stopwatch: {
+        watchRunning: false,
+        timer: '00:00:00',
+        startTime: null,
+        date: 'no-date',
+        timeEntryPay: 0
+    }
   }
+
+
+
+  startWatch = () => {
+    const startTimestamp = moment();
+    const startTime = moment().format('h:mma');
+    const timerStart = startTimestamp.startOf("day");
+    const startDate = startTimestamp.format('MMM/D/YYYY');
+
+    this.setState((prevState) => ({
+        ...prevState,
+        stopwatch: {
+          watchRunning: true,
+          timer: '00:00:00',
+          startTime: startTime,
+          date: startDate,
+          timeEntryPay: 0
+        }
+    }));
+
+    this.interval = setInterval(() => { 
+        const timer = timerStart.add(1, 'second').format('HH:mm:ss');
+
+        this.setState((prevState) => ({
+            ...prevState,
+            stopwatch: {
+              watchRunning: true,
+              timer: timer,
+              startTime: startTime,
+              date: startDate,
+              timeEntryPay: 0
+            }
+        }));
+    }, 1000);   
+}
+
+
+
+
+
+stopWatch = (id, payRate) => {
+  const date = this.state.stopwatch.date;
+  const startTime = this.state.stopwatch.startTime;
+  const stopTime = moment().format('h:mma');
+  const timeEntryPay = this.getEntryPay(payRate);
+  const totalTime = this.state.stopwatch.timer;
+
+  this.addTimeEntry(id, date, startTime, stopTime, totalTime, timeEntryPay);
+  
+  clearInterval(this.interval);
+
+  this.setState((prevState) => ({
+    ...prevState,
+    stopwatch: {
+      watchRunning: false,
+      timer: '00:00:00',
+      startTime: null,
+      date: 'no-date',
+      timeEntryPay: 0
+    }
+  }));
+}
+
+
+    getEntryPay = (payRate) => {
+        const myMin = Math.floor(moment.duration(this.state.timer).asMinutes());
+        const timeEntryPay = (payRate / 60) * myMin;
+        
+        return timeEntryPay;
+    }
+
+
+
 
   async componentDidMount() {
     const projects = await fetchProjects();
@@ -121,9 +203,13 @@ class App extends Component {
                   props={props} 
                   projects={this.state.projects} 
                   addNotes={this.addNotes} 
-                  addTimeEntry={this.addTimeEntry}
                   delTimeEntry={this.delTimeEntry}
-                  delProjItem={this.delProjItem}/>
+                  delProjItem={this.delProjItem}
+                  startWatch={this.startWatch}
+                  stopWatch={this.stopWatch}
+                  watchRunning={this.state.stopwatch.watchRunning}
+                  timer={this.state.stopwatch.timer}
+                />
               </React.Fragment>
             )} />
 
