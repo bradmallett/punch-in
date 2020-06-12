@@ -122,7 +122,8 @@ class App extends Component {
                   projects={this.state.projects} 
                   addNotes={this.addNotes} 
                   addTimeEntry={this.addTimeEntry}
-                  delTimeEntry={this.delTimeEntry}/>
+                  delTimeEntry={this.delTimeEntry}
+                  delProjItem={this.delProjItem}/>
               </React.Fragment>
             )} />
 

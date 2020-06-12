@@ -218,6 +218,14 @@ a {
   display: flex;
   align-items: center;
   background-color: #fff;
+  width: 170px;
+}
+
+.entry-white-contain-time {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  width: 40%;
 }
 
 
@@ -436,23 +444,33 @@ a {
 }
 
 
+}
+
+
+
+
+@media only screen and (max-width: 800px) {
 
 /*-------- PUNCH-IN && TIME ENTRIES --------*/
 
-.punchIns-wrapper {
-  margin: 40px 0px;
-  background-color: none;
-  border: 2px solid #a9a9a9;
-}
+  .punchIns-wrapper {
+    margin: 40px 0px;
+    background-color: none;
+    border: 2px solid #a9a9a9;
+  }
 
-.punchIn-entry-contain {
-  flex-direction: column;
-  background-color: #ededed00;
-}
+  .punchIn-entry-contain {
+    flex-direction: column;
+    background-color: #ededed00;
+  }
 
-.entry-white-contain{
-  width: 100%;
-  margin: 15px 0px;
-}
+  .entry-white-contain{
+    width: 100%;
+    margin: 15px 0px;
+  }
 
+  .entry-white-contain-time{
+    width: 100%;
+    margin: 15px 0px;
+  }
 }

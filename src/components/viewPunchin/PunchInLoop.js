@@ -16,6 +16,7 @@ export class PunchInLoop extends Component {
                     addNotes={this.props.addNotes}
                     addTimeEntry={this.props.addTimeEntry}
                     delTimeEntry={this.props.delTimeEntry}
+                    delProjItem={this.props.delProjItem}
                 />
             ))
     }

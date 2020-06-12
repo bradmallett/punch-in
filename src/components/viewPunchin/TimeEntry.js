@@ -4,6 +4,8 @@ import QueryBuilderOutlinedIcon from '@material-ui/icons/QueryBuilderOutlined';
 import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import IconButton from '@material-ui/core/IconButton';
+import Zoom from '@material-ui/core/Zoom';
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 
@@ -28,7 +30,7 @@ export class TimeEntry extends Component {
                         </div>
                         <p className='entry-text'>{date}</p>
                     </div>
-                    <div className='entry-white-contain'>
+                    <div className='entry-white-contain-time'>
                         <div className='colorContainIcon' style={{backgroundColor: color}}>
                             <QueryBuilderOutlinedIcon style={{fontSize: '2rem', color: '#fff'}}/>
                         </div>
@@ -43,11 +45,13 @@ export class TimeEntry extends Component {
                     </div>
 
                     <div className='entryDelete-contain'>
-                        <IconButton onClick={this.delTimeEntryItem}>
-                            <DeleteOutlineOutlinedIcon className='time-entry-delete-icon' style={delIconStyle}/>
-                        </IconButton>
-                    </div>
 
+                        <Tooltip TransitionComponent={Zoom} title="Delete Time Entry" arrow>
+                            <IconButton onClick={this.delTimeEntryItem}>
+                                <DeleteOutlineOutlinedIcon className='time-entry-delete-icon' style={delIconStyle}/>
+                            </IconButton>
+                        </Tooltip>
+                    </div>
 
                 </div>
             </div>
