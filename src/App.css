@@ -209,7 +209,7 @@ a {
   display: flex;
   flex-direction: row;
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   background-color: #ededed;
 }
@@ -218,7 +218,7 @@ a {
   display: flex;
   align-items: center;
   background-color: #fff;
-  width: 170px;
+  width: 180px;
 }
 
 .entry-white-contain-time {
@@ -331,7 +331,7 @@ a {
 
 .stopwatch-contain {
   width: 50%;
-  max-width: 900px;
+  max-width: 400px;
   margin: 30px auto;
   display: flex;
   align-items: center;
@@ -347,6 +347,12 @@ a {
   border: none;
   font-size: 1.6rem;
   cursor: pointer;
+}
+
+.timer-txt {
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-left: auto;
 }
 
 .stopwatch-start {
@@ -372,9 +378,19 @@ a {
   border: 5px solid rgb(253, 90, 49);
 }
 
-.timer-txt {
+.noStopMsg {
+  display: block;
+  text-align: center;
+  margin: 50px auto;
+}
+
+.noStopMsgTxt {
+  padding: 30px;
+  background: rgb(189, 39, 2);
+  display: inline-block;
+  font-size: 1.3em;
   font-weight: bold;
-  font-size: 1.4rem;
+  color: #fff;
 }
 
 
@@ -449,6 +465,8 @@ a {
 
 
 
+
+
 @media only screen and (max-width: 800px) {
 
 /*-------- PUNCH-IN && TIME ENTRIES --------*/
@@ -473,4 +491,25 @@ a {
     width: 100%;
     margin: 15px 0px;
   }
+
+
+
+/*-------- STOPWATCH FOR PHONES --------*/
+
+.stopwatch-contain {
+  width: 300px;
+  margin: 50px auto;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stopwatch-start, .stopwatch-stop {
+  margin: auto;
+}
+
+.timer-txt {
+  margin: 30px auto;
+}
+
+
 }

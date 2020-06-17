@@ -20,6 +20,7 @@ export class PunchInLoop extends Component {
                     stopWatch={this.props.stopWatch}
                     watchRunning={this.props.watchRunning}
                     timer={this.props.timer}
+                    stopwatchID={this.props.stopwatchID}
                 />
             ))
     }

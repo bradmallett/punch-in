@@ -30,6 +30,7 @@ export class TimeEntry extends Component {
                         </div>
                         <p className='entry-text'>{date}</p>
                     </div>
+                    
                     <div className='entry-white-contain-time'>
                         <div className='colorContainIcon' style={{backgroundColor: color}}>
                             <QueryBuilderOutlinedIcon style={{fontSize: '2rem', color: '#fff'}}/>
