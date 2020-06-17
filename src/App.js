@@ -7,12 +7,22 @@ import Projects from './components/viewProjects/Projects';
 import AddProject from './components/viewProjects/AddProject';
 import PunchInLoop from './components/viewPunchin/PunchInLoop';
 import {fetchProjects} from './services/fetch-projects';
+import moment from 'moment';
+
 
 
 class App extends Component {
 
   state = {
-    projects: []
+    projects: [],
+    stopwatch: {
+        id: '',
+        watchRunning: false,
+        timer: '00:00:00',
+        startTime: null,
+        date: 'no-date',
+        timeEntryPay: 0
+    }
   }
 
   async componentDidMount() {
@@ -20,6 +30,102 @@ class App extends Component {
 
     this.setState({projects});
   }
+
+
+  startWatch = (id) => {
+    const startTimestamp = moment();
+    const startTime = moment().format('h:mma');
+    const timerStart = startTimestamp.startOf("day");
+    const startDate = startTimestamp.format('MMM/D/YYYY');
+
+    this.setState((prevState) => ({
+        ...prevState,
+        stopwatch: {
+          id,
+          watchRunning: true,
+          timer: '00:00:00',
+          startTime: startTime,
+          date: startDate,
+          timeEntryPay: 0
+        }
+    }));
+
+    this.interval = setInterval(() => { 
+        const timer = timerStart.add(1, 'second').format('HH:mm:ss');
+
+        this.setState((prevState) => ({
+            ...prevState,
+            stopwatch: {
+              id,
+              watchRunning: true,
+              timer: timer,
+              startTime: startTime,
+              date: startDate,
+              timeEntryPay: 0
+            }
+        }));
+    }, 1000);   
+}
+
+
+getEntryPay = (payRate) => {
+  const myMin = Math.floor(moment.duration(this.state.stopwatch.timer).asSeconds());
+  const timeEntryPay = (payRate / 60) * myMin;
+  const rounded = (Math.round(timeEntryPay * 100) / 100).toFixed(2);
+
+  return rounded;
+}
+
+
+
+stopWatch = (id, payRate) => {
+
+  const date = this.state.stopwatch.date;
+  const startTime = this.state.stopwatch.startTime;
+  const stopTime = moment().format('h:mma');
+  const timeEntryPay = this.getEntryPay(payRate);
+  const totalTime = this.state.stopwatch.timer;
+
+  this.addTimeEntry(id, date, startTime, stopTime, totalTime, timeEntryPay);
+  
+  clearInterval(this.interval);
+
+  this.setState((prevState) => ({
+    ...prevState,
+    stopwatch: {
+      id: '',
+      watchRunning: false,
+      timer: '00:00:00',
+      startTime: null,
+      date: 'no-date',
+      timeEntryPay: 0
+    }
+  }));
+}
+
+
+
+addTimeEntry = (id, date, start, stop, totalTime, totalPay) => {
+
+  const newProjects = [...this.state.projects];
+  const index = this.state.projects.map((project) => project.id).indexOf(id);
+  const newProj = this.state.projects[index];
+  const newTimeEntry = {
+    id: uuidv4(),
+    date, 
+    timeStart: start, 
+    timeEnd: stop, 
+    timeEntryTotal: totalTime, 
+    timeEntryPay: totalPay
+  }
+
+  newProj.timeEntries = [newTimeEntry, ...newProj.timeEntries];
+  newProj.punchIns = newProj.timeEntries.length;
+  newProjects[index] = newProj;
+  this.setState({ projects: newProjects })
+}
+
+
 
   addProject = (title, payRate, color) => {
     this.setState({ projects: [{
@@ -56,24 +162,6 @@ class App extends Component {
     this.setState({ projects: newProjects })
   }
 
-
-  addTimeEntry = (id, date, start, stop, totalTime, totalPay) => {
-    const newProjects = [...this.state.projects];
-    const index = this.state.projects.map((project) => project.id).indexOf(id);
-    const newProj = this.state.projects[index];
-    const newTimeEntry = {
-      id: uuidv4(),
-      date, 
-      timeStart: start, 
-      timeEnd: stop, 
-      timeEntryTotal: totalTime, 
-      timeEntryPay: totalPay
-    }
-
-    newProj.timeEntries = [newTimeEntry, ...newProj.timeEntries];
-    newProjects[index] = newProj;
-    this.setState({ projects: newProjects })
-  }
 
 
   delProjItem = (id) => {
@@ -121,9 +209,14 @@ class App extends Component {
                   props={props} 
                   projects={this.state.projects} 
                   addNotes={this.addNotes} 
-                  addTimeEntry={this.addTimeEntry}
                   delTimeEntry={this.delTimeEntry}
-                  delProjItem={this.delProjItem}/>
+                  delProjItem={this.delProjItem}
+                  startWatch={this.startWatch}
+                  stopWatch={this.stopWatch}
+                  watchRunning={this.state.stopwatch.watchRunning}
+                  timer={this.state.stopwatch.timer}
+                  stopwatchID={this.state.stopwatch.id}
+                />
               </React.Fragment>
             )} />
 

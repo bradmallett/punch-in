@@ -14,9 +14,13 @@ export class PunchInLoop extends Component {
                     key={projectItem.id} 
                     projectItem={projectItem} 
                     addNotes={this.props.addNotes}
-                    addTimeEntry={this.props.addTimeEntry}
                     delTimeEntry={this.props.delTimeEntry}
                     delProjItem={this.props.delProjItem}
+                    startWatch={this.props.startWatch}
+                    stopWatch={this.props.stopWatch}
+                    watchRunning={this.props.watchRunning}
+                    timer={this.props.timer}
+                    stopwatchID={this.props.stopwatchID}
                 />
             ))
     }
