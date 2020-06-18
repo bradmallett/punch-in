@@ -10,7 +10,7 @@ export const fetchProjects = async () => {
         punchIns: 0,
         totalTime: '03:00:00',
         totalPay: 150.00,
-        notes: `Project 1 notes`,
+        notes: ``,
         timeEntries: [
             { id: '26862dbb-186b-464d-9aad-bf4592537c96',
               date: 'Jun/1/2020',
@@ -37,7 +37,7 @@ export const fetchProjects = async () => {
         punchIns: 0,
         totalTime: '03:00:00',
         totalPay: 150.00,
-        notes: 'Project 2 notes',
+        notes: '',
         timeEntries: [
             { id: 'A9E9E1B2-0DEE-448A-BAA5-087B37AEFA3E',
               date: 'Feb/12/2021',
