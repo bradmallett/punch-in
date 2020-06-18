@@ -5,7 +5,8 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
   line-height: 1.4;
 }
 
@@ -68,7 +69,6 @@ a {
   margin-left: auto;
   border-left: 1px solid #fff;
   padding-left: 10px;
-  align-self: flex-start;
 }
 
 .projectBottomBar {
@@ -137,6 +137,9 @@ a {
   border: none;
   font-size: 1rem;
   width: 50%;
+  font-family: "Montserrat", sans-serif;
+  color: #6b6b6b;
+  font-weight: 600;
 }
 
 .createProjTxt {
@@ -144,6 +147,9 @@ a {
   margin: 10px;
   border: none;
   font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  color: #6b6b6b;
 }
 
 .input-icon {
@@ -167,7 +173,7 @@ a {
 
 .perHourSign {
   padding-right: 15px;
-  right: 5px;
+  right: 15px;
 }
 
 .input-icon > input {
@@ -239,6 +245,7 @@ a {
 
 .entry-text {
   margin: 0px 20px;
+  font-size: .9em;
 }
 
 
@@ -293,8 +300,7 @@ a {
   font-size: 1rem;
   padding: 10px;
   margin: 0;
-  font-family: cursive;
-  
+  font-family: "Montserrat", sans-serif;  
 }
 
 .notesSaved, .saveNotes {
