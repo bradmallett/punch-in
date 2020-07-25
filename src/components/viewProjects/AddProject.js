@@ -34,22 +34,19 @@ export class AddProject extends Component {
 
     onChange = (e) => this.setState( {[e.target.name]: e.target.value} );
 
-    onSubmit = (e) => {
+    onSubmit = async (e) => {
         e.preventDefault();
-        this.props.addProject(this.state.title, this.state.payRate, this.state.color);
+        await this.props.addProject(this.state.title, this.state.payRate, this.state.color);
         this.setState({ 
-            id: uuidv4(),
+            // id: uuidv4(),
             title: '',
             payRate: '',
             displayColorPicker: false,
             color: '#01C4FC'
         });
-    } 
-
-
+    }
 
     render() {
-        
         // Color Picker Styles
         const styles = reactCSS({
             'default': {

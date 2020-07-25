@@ -78,7 +78,6 @@ export const addProject = async (title, payRate, color) => {
       });
 
       return response.json();
-
     // payload example: 
     // {
     //   "title": "Mcdonalds",

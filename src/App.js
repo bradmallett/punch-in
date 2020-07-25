@@ -66,21 +66,20 @@ class App extends Component {
   }
 
   getEntryPay = (payRate) => {
-    const myMin = Math.floor(moment.duration(this.state.stopwatch.timer).asSeconds());
-    const timeEntryPay = (payRate / 60) * myMin;
-    const rounded = (Math.round(timeEntryPay * 100) / 100).toFixed(2);
-
-    return rounded;
+    const timeEntryDurationInMinutes = Math.floor(moment.duration(this.state.stopwatch.timer).asMinutes());
+    const timeEntryPay = (payRate / 60) * timeEntryDurationInMinutes;
+    
+    return (Math.round(timeEntryPay * 100) / 100).toFixed(2);
   }
 
-  stopWatch = (id, payRate) => {
+  stopWatch = (projectId, payRate) => {
     const date = this.state.stopwatch.date;
     const startTime = this.state.stopwatch.startTime;
     const stopTime = moment().format('h:mma');
     const timeEntryPay = this.getEntryPay(payRate);
     const totalTime = this.state.stopwatch.timer;
 
-    this.addTimeEntry(id, date, startTime, stopTime, totalTime, timeEntryPay);
+    this.addTimeEntry(projectId, date, startTime, stopTime, totalTime, timeEntryPay);
     
     clearInterval(this.interval);
 
@@ -119,9 +118,14 @@ class App extends Component {
   addProject = async (title, payRate, color) => {
     const addedProject = await projectsService.addProject(title, payRate, color);
 
-    this.setState({ projects: [addedProject, ...this.state.projects] }) 
-  }
+    this.setState({ projects: [addedProject, ...this.state.projects] });
 
+    // this.setState((prevState) => {
+    //   return {
+    //     projects: [addedProject, ...prevState.projects]
+    //   };
+    // });
+  }
 
   noProjStyle = () => {
     return {
