@@ -6,10 +6,8 @@ import Header from './components/Header';
 import Projects from './components/viewProjects/Projects';
 import AddProject from './components/viewProjects/AddProject';
 import PunchInLoop from './components/viewPunchin/PunchInLoop';
-import {fetchProjects} from './services/fetch-projects';
+import * as projectsService from './services/projects-service';
 import moment from 'moment';
-
-
 
 class App extends Component {
 
@@ -26,7 +24,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const projects = await fetchProjects();
+    const projects = await projectsService.fetchProjects();
 
     this.setState({projects});
   }
@@ -65,80 +63,63 @@ class App extends Component {
             }
         }));
     }, 1000);   
-}
-
-
-getEntryPay = (payRate) => {
-  const myMin = Math.floor(moment.duration(this.state.stopwatch.timer).asSeconds());
-  const timeEntryPay = (payRate / 60) * myMin;
-  const rounded = (Math.round(timeEntryPay * 100) / 100).toFixed(2);
-
-  return rounded;
-}
-
-
-
-stopWatch = (id, payRate) => {
-
-  const date = this.state.stopwatch.date;
-  const startTime = this.state.stopwatch.startTime;
-  const stopTime = moment().format('h:mma');
-  const timeEntryPay = this.getEntryPay(payRate);
-  const totalTime = this.state.stopwatch.timer;
-
-  this.addTimeEntry(id, date, startTime, stopTime, totalTime, timeEntryPay);
-  
-  clearInterval(this.interval);
-
-  this.setState((prevState) => ({
-    ...prevState,
-    stopwatch: {
-      id: '',
-      watchRunning: false,
-      timer: '00:00:00',
-      startTime: null,
-      date: 'no-date',
-      timeEntryPay: 0
-    }
-  }));
-}
-
-
-
-addTimeEntry = (id, date, start, stop, totalTime, totalPay) => {
-
-  const newProjects = [...this.state.projects];
-  const index = this.state.projects.map((project) => project.id).indexOf(id);
-  const newProj = this.state.projects[index];
-  const newTimeEntry = {
-    id: uuidv4(),
-    date, 
-    timeStart: start, 
-    timeEnd: stop, 
-    timeEntryTotal: totalTime, 
-    timeEntryPay: totalPay
   }
 
-  newProj.timeEntries = [newTimeEntry, ...newProj.timeEntries];
-  newProj.punchIns = newProj.timeEntries.length;
-  newProjects[index] = newProj;
-  this.setState({ projects: newProjects })
-}
+  getEntryPay = (payRate) => {
+    const myMin = Math.floor(moment.duration(this.state.stopwatch.timer).asSeconds());
+    const timeEntryPay = (payRate / 60) * myMin;
+    const rounded = (Math.round(timeEntryPay * 100) / 100).toFixed(2);
 
+    return rounded;
+  }
 
+  stopWatch = (id, payRate) => {
+    const date = this.state.stopwatch.date;
+    const startTime = this.state.stopwatch.startTime;
+    const stopTime = moment().format('h:mma');
+    const timeEntryPay = this.getEntryPay(payRate);
+    const totalTime = this.state.stopwatch.timer;
 
-  addProject = (title, payRate, color) => {
-    this.setState({ projects: [{
+    this.addTimeEntry(id, date, startTime, stopTime, totalTime, timeEntryPay);
+    
+    clearInterval(this.interval);
+
+    this.setState((prevState) => ({
+      ...prevState,
+      stopwatch: {
+        id: '',
+        watchRunning: false,
+        timer: '00:00:00',
+        startTime: null,
+        date: 'no-date',
+        timeEntryPay: 0
+      }
+    }));
+  }
+
+  addTimeEntry = (id, date, start, stop, totalTime, totalPay) => {
+    const newProjects = [...this.state.projects];
+    const index = this.state.projects.map((project) => project.id).indexOf(id);
+    const newProj = this.state.projects[index];
+    const newTimeEntry = {
       id: uuidv4(),
-      title,
-      payRate,
-      color,
-      punchIns: 0,
-      totalTime: '00:00:00',
-      totalPay: 0,
-      notes: '',
-      timeEntries: []
-    }, ...this.state.projects] }) 
+      date, 
+      timeStart: start, 
+      timeEnd: stop, 
+      timeEntryTotal: totalTime, 
+      timeEntryPay: totalPay
+    }
+
+    newProj.timeEntries = [newTimeEntry, ...newProj.timeEntries];
+    newProj.punchIns = newProj.timeEntries.length;
+    newProjects[index] = newProj;
+    this.setState({ projects: newProjects })
+  }
+
+  addProject = async (title, payRate, color) => {
+    const addedProject = await projectsService.addProject(title, payRate, color);
+
+    this.setState({ projects: [addedProject, ...this.state.projects] }) 
   }
 
 
@@ -151,7 +132,6 @@ addTimeEntry = (id, date, start, stop, totalTime, totalPay) => {
     }
   }
 
-
   addNotes = (id, notes) => {
     const index = this.state.projects.map((project) => project.id).indexOf(id);
     const newProj = this.state.projects[index];
@@ -162,14 +142,11 @@ addTimeEntry = (id, date, start, stop, totalTime, totalPay) => {
     this.setState({ projects: newProjects })
   }
 
-
-
   delProjItem = (id) => {
     this.setState({ projects: [...this.state.projects
       .filter((project) => project.id !== id ) ]} 
     )
   }
-
 
   delTimeEntry = (projID, entryID) => {
     const newProjects = [...this.state.projects];
@@ -181,7 +158,6 @@ addTimeEntry = (id, date, start, stop, totalTime, totalPay) => {
     newProjects[index] = newProj;
     this.setState({ projects: newProjects })
   }
-
 
   render() {
   return (
