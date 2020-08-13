@@ -25,6 +25,7 @@ class App extends Component {
 
   async componentDidMount() {
     const projects = await projectsService.fetchProjects();
+    
 
     this.setState({projects});
   }
