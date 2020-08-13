@@ -1,17 +1,13 @@
 
 export const fetchProjects = async () => {
-  let projects;
-
   try {
     const response = await fetch('https://nameless-cliffs-27775.herokuapp.com/projects');
-    projects = await response.json();
-  } catch (err) {
-    if (err.message.includes('Unexpected end of JSON input')) {
-      return [];
-    }
-  }
+    const projects = await response.json();
 
     return projects;
+  } catch (err) {
+    return [];
+  }
 };
 
 export const addProject = async (title, payRate, color) => {
