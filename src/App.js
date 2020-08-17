@@ -25,11 +25,9 @@ class App extends Component {
 
   async componentDidMount() {
     const projects = await projectsService.fetchProjects();
-    
 
     this.setState({projects});
   }
-
 
   startWatch = (id) => {
     const startTimestamp = moment();
@@ -119,13 +117,9 @@ class App extends Component {
   addProject = async (title, payRate, color) => {
     const addedProject = await projectsService.addProject(title, payRate, color);
 
-    this.setState({ projects: [addedProject, ...this.state.projects] });
-
-    // this.setState((prevState) => {
-    //   return {
-    //     projects: [addedProject, ...prevState.projects]
-    //   };
-    // });
+    this.setState((prevState) => ({
+      projects: [addedProject, ...prevState.projects]
+    }));
   }
 
   noProjStyle = () => {
@@ -147,10 +141,17 @@ class App extends Component {
     this.setState({ projects: newProjects })
   }
 
-  delProjItem = (id) => {
-    this.setState({ projects: [...this.state.projects
-      .filter((project) => project.id !== id ) ]} 
-    )
+  delProjItem = async (id) => {
+    try {
+      await projectsService.deleteProject(id);
+
+      const projectsCopy = [...this.state.projects];
+      const updatedProjects = projectsCopy.filter((project) => project.id !== id);
+
+      this.setState({projects: updatedProjects});
+    } catch (err) {
+      console.log('Failed to delete the project from the server.', err);
+    }
   }
 
   delTimeEntry = (projID, entryID) => {

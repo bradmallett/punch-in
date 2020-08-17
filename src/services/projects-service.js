@@ -30,14 +30,10 @@ export const addProject = async (title, payRate, color) => {
       });
 
       return response.json();
-    // payload example: 
-    // {
-    //   "title": "Mcdonalds",
-    //   "color": "blue",
-    //   "payRate": 50.00 // amount of dolars per hour? 
-    //   "punchIns": 0,
-    //   "totalTime": 0,
-    //   "totalPay": 0.00,
-    //   "notes": ""
-    // }
+};
+
+export const deleteProject = async (id) => {
+  await fetch(`https://nameless-cliffs-27775.herokuapp.com/projects/${id}`, {
+    method: 'DELETE'
+  });
 };
