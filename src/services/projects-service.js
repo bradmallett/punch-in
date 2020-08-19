@@ -1,7 +1,9 @@
+const localHost = 'http://localhost:8080';
+const realHost = 'https://nameless-cliffs-27775.herokuapp.com';
 
 export const fetchProjects = async () => {
   try {
-    const response = await fetch('https://nameless-cliffs-27775.herokuapp.com/projects');
+    const response = await fetch(`${localHost}/projects`);
     const projects = await response.json();
 
     return projects;
@@ -21,7 +23,7 @@ export const addProject = async (title, payRate, color) => {
         notes: ""
     };
 
-    const response = await fetch('https://nameless-cliffs-27775.herokuapp.com/add-project', {
+    const response = await fetch(`${localHost}/add-project`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -33,7 +35,19 @@ export const addProject = async (title, payRate, color) => {
 };
 
 export const deleteProject = async (id) => {
-  await fetch(`https://nameless-cliffs-27775.herokuapp.com/projects/${id}`, {
+  await fetch(`${localHost}/projects/${id}`, {
     method: 'DELETE'
   });
+};
+
+export const addTimeEntryForProject = async (projectId, timeEntry) => {
+  const response = await fetch(`${localHost}/projects/${projectId}/add-time-entry`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(timeEntry)
+  });
+
+  return response.json();
 };
