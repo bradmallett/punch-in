@@ -10,9 +10,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 
 export class TimeEntry extends Component {
-
-    
-
     delTimeEntryItem = () => this.props.delTimeEntry(this.props.projID, this.props.entryItem.id);
 
     render() {

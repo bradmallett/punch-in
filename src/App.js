@@ -55,7 +55,7 @@ class App extends Component {
             stopwatch: {
               id,
               watchRunning: true,
-              timer: timer,
+              timer,
               startTime: startTime,
               date: startDate,
               timeEntryPay: 0
@@ -108,6 +108,11 @@ class App extends Component {
 
     try {
       const updatedProject = await projectsService.addTimeEntryForProject(projectId, timeEntry);
+
+      updatedProject.totalTime = moment.utc(totalMinutes / 1000).format("HH:mm:ss");
+
+      console.log({updatedProject});
+
       const projectsCopy = [...this.state.projects];
       const alteredProjects = projectsCopy.map((project) => {
         if (project.id === projectId) {
