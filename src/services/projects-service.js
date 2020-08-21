@@ -1,12 +1,23 @@
 const localHost = 'http://localhost:8080';
 const realHost = 'https://nameless-cliffs-27775.herokuapp.com';
 
+const sanitizeProjects = (projects) =>
+  projects.map((project) => {
+    if (!project.timeEntries) {
+      project.timeEntries = [];
+
+      return project;
+    }
+
+    return project;
+  });
+
 export const fetchProjects = async () => {
   try {
     const response = await fetch(`${localHost}/projects`);
     const projects = await response.json();
 
-    return projects;
+    return sanitizeProjects(projects);
   } catch (err) {
     return [];
   }

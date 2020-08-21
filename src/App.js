@@ -97,25 +97,24 @@ class App extends Component {
 
   addTimeEntry = async (projectId, date, start, stop, totalTime, totalPay) => {
     const newMoment = moment(moment.duration(totalTime));
-    const totalMinutes = Math.round((newMoment._i._milliseconds / 1000) / 60);
+    const totalSeconds = Math.round(newMoment._i._milliseconds / 1000);
     const timeEntry = {
       date, 
       timeStart: start, 
       timeEnd: stop, 
-      timeEntryTotal: totalMinutes, 
+      timeEntryTotal: totalSeconds, 
       timeEntryPay: totalPay
     };
 
     try {
       const updatedProject = await projectsService.addTimeEntryForProject(projectId, timeEntry);
 
-      updatedProject.totalTime = moment.utc(totalMinutes / 1000).format("HH:mm:ss");
-
-      console.log({updatedProject});
+      updatedProject.totalTime = moment.utc(totalSeconds * 1000).format("HH:mm:ss");
 
       const projectsCopy = [...this.state.projects];
       const alteredProjects = projectsCopy.map((project) => {
         if (project.id === projectId) {
+
           return updatedProject;
         }
 
