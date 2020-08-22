@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
+import {convertTimeIntoString, convertTimeStringToInt} from './helpers';
 import './App.css';
 import Header from './components/Header';
 import Projects from './components/viewProjects/Projects';
@@ -96,25 +96,23 @@ class App extends Component {
   }
 
   addTimeEntry = async (projectId, date, start, stop, totalTime, totalPay) => {
-    const newMoment = moment(moment.duration(totalTime));
-    const totalSeconds = Math.round(newMoment._i._milliseconds / 1000);
+    const timeEntryTotal = convertTimeStringToInt(totalTime);
     const timeEntry = {
       date, 
       timeStart: start, 
       timeEnd: stop, 
-      timeEntryTotal: totalSeconds, 
+      timeEntryTotal,
       timeEntryPay: totalPay
     };
 
     try {
       const updatedProject = await projectsService.addTimeEntryForProject(projectId, timeEntry);
 
-      updatedProject.totalTime = moment.utc(totalSeconds * 1000).format("HH:mm:ss");
+      updatedProject.totalTime = convertTimeIntoString(timeEntryTotal);
 
       const projectsCopy = [...this.state.projects];
       const alteredProjects = projectsCopy.map((project) => {
         if (project.id === projectId) {
-
           return updatedProject;
         }
 

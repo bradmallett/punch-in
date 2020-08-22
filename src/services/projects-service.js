@@ -1,16 +1,26 @@
+import moment from 'moment';
+import {convertTimeIntoString} from '../helpers';
+
 const localHost = 'http://localhost:8080';
 const realHost = 'https://nameless-cliffs-27775.herokuapp.com';
 
-const sanitizeProjects = (projects) =>
-  projects.map((project) => {
-    if (!project.timeEntries) {
-      project.timeEntries = [];
-
-      return project;
-    }
+const prepareProjectForDisplay = (project) => {
+  if (!project.timeEntries) {
+    project.timeEntries = [];
+    project.totalTime = moment.utc(0 * 1000).format("HH:mm:ss");
 
     return project;
-  });
+  }
+
+  const formattedTime = convertTimeIntoString(project.totalTime);
+
+  project.totalTime = formattedTime;
+
+  return project;
+};
+
+const sanitizeProjects = (projects) =>
+  projects.map(prepareProjectForDisplay);
 
 export const fetchProjects = async () => {
   try {
@@ -42,7 +52,9 @@ export const addProject = async (title, payRate, color) => {
         body: JSON.stringify(payload)
       });
 
-      return response.json();
+      const project = await response.json();
+
+      return prepareProjectForDisplay(project);
 };
 
 export const deleteProject = async (id) => {
@@ -52,6 +64,7 @@ export const deleteProject = async (id) => {
 };
 
 export const addTimeEntryForProject = async (projectId, timeEntry) => {
+  console.log({paylad: timeEntry});
   const response = await fetch(`${localHost}/projects/${projectId}/add-time-entry`, {
     method: 'PUT',
     headers: {
@@ -60,5 +73,9 @@ export const addTimeEntryForProject = async (projectId, timeEntry) => {
     body: JSON.stringify(timeEntry)
   });
 
-  return response.json();
+  const project = await response.json();
+
+  // TODO: This is coming back with string formatted totalTime for some reason
+
+  return project;
 };
