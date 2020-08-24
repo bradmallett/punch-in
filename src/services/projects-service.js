@@ -59,7 +59,6 @@ export const deleteProject = async (id) => {
 };
 
 export const addTimeEntryForProject = async (projectId, timeEntry) => {
-  console.log({paylad: timeEntry});
   const response = await fetch(`${localHost}/projects/${projectId}/add-time-entry`, {
     method: 'PUT',
     headers: {
@@ -68,9 +67,5 @@ export const addTimeEntryForProject = async (projectId, timeEntry) => {
     body: JSON.stringify(timeEntry)
   });
 
-  const project = await response.json();
-
-  // TODO: This is coming back with string formatted totalTime for some reason
-
-  return project;
+  return response.json();
 };
