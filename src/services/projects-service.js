@@ -7,14 +7,9 @@ const realHost = 'https://nameless-cliffs-27775.herokuapp.com';
 const prepareProjectForDisplay = (project) => {
   if (!project.timeEntries) {
     project.timeEntries = [];
-    // project.totalTime = moment.utc(0 * 1000).format("HH:mm:ss");
 
     return project;
   }
-
-  // const formattedTime = convertTimeIntoString(project.totalTime);
-
-  // project.totalTime = formattedTime;
 
   return project;
 };
