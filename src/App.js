@@ -76,7 +76,7 @@ class App extends Component {
     const startTime = this.state.stopwatch.startTime;
     const stopTime = moment().format('h:mma');
     const timeEntryPay = this.getEntryPay(payRate);
-    const totalTime = this.state.stopwatch.timer;
+    const totalTime = convertTimeStringToInt(this.state.stopwatch.timer);
 
     this.addTimeEntry(projectId, date, startTime, stopTime, totalTime, timeEntryPay);
     
@@ -96,19 +96,19 @@ class App extends Component {
   }
 
   addTimeEntry = async (projectId, date, start, stop, totalTime, totalPay) => {
-    const timeEntryTotal = convertTimeStringToInt(totalTime);
+    // const timeEntryTotal = convertTimeStringToInt(totalTime);
     const timeEntry = {
       date, 
       timeStart: start, 
       timeEnd: stop, 
-      timeEntryTotal,
+      timeEntryTotal: totalTime,
       timeEntryPay: totalPay
     };
 
     try {
       const updatedProject = await projectsService.addTimeEntryForProject(projectId, timeEntry);
 
-      updatedProject.totalTime = convertTimeIntoString(timeEntryTotal);
+      // updatedProject.totalTime = convertTimeIntoString(timeEntryTotal);
 
       const projectsCopy = [...this.state.projects];
       const alteredProjects = projectsCopy.map((project) => {

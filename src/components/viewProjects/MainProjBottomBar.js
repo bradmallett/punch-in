@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import QueryBuilderOutlinedIcon from '@material-ui/icons/QueryBuilderOutlined';
 import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
+
+import {convertTimeIntoString} from '../../helpers';
 
 
 export default function MainProjBottomBar({projectItem}) {
@@ -14,7 +15,7 @@ export default function MainProjBottomBar({projectItem}) {
                 <div className='projectBtmIconContain' style={{backgroundColor: color}}>
                     <QueryBuilderOutlinedIcon style={{fontSize: '2rem', color: '#fff'}}/>
                 </div>
-                <p className='projectBtmText'>TOTAL TIME | {totalTime}</p>
+                <p className='projectBtmText'>TOTAL TIME | {convertTimeIntoString(totalTime)}</p>
             </div>
             <div className='projectBtmBox-right' style={{border: `2px solid ${color}`}}>
                 <div className='projectBtmIconContain' style={{backgroundColor: color}}>
