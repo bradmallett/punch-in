@@ -65,10 +65,10 @@ class App extends Component {
   }
 
   getEntryPay = (payRate) => {
-    const timeEntryDurationInMinutes = Math.floor(moment.duration(this.state.stopwatch.timer).asMinutes());
-    const timeEntryPay = (payRate / 60) * timeEntryDurationInMinutes;
-    
-    return (Math.round(timeEntryPay * 100) / 100).toFixed(2);
+    const durationInSeconds = Math.floor(moment.duration(this.state.stopwatch.timer).asSeconds());
+    const timeEntryPay = (durationInSeconds * payRate) / 3600;
+
+    return Math.round(timeEntryPay * 100) / 100;
   }
 
   stopWatch = (projectId, payRate) => {
@@ -96,7 +96,6 @@ class App extends Component {
   }
 
   addTimeEntry = async (projectId, date, start, stop, totalTime, totalPay) => {
-    // const timeEntryTotal = convertTimeStringToInt(totalTime);
     const timeEntry = {
       date, 
       timeStart: start, 
@@ -107,9 +106,6 @@ class App extends Component {
 
     try {
       const updatedProject = await projectsService.addTimeEntryForProject(projectId, timeEntry);
-
-      // updatedProject.totalTime = convertTimeIntoString(timeEntryTotal);
-
       const projectsCopy = [...this.state.projects];
       const alteredProjects = projectsCopy.map((project) => {
         if (project.id === projectId) {
@@ -166,15 +162,18 @@ class App extends Component {
     }
   }
 
-  delTimeEntry = (projID, entryID) => {
-    const newProjects = [...this.state.projects];
-    const index = this.state.projects.map((project) => project.id).indexOf(projID);
-    const newProj = newProjects[index];
-    const newEntries = newProj.timeEntries.filter(entry => entry.id !== entryID);
-   
-    newProj.timeEntries = newEntries;
-    newProjects[index] = newProj;
-    this.setState({ projects: newProjects })
+  delTimeEntry = async (projectId, entryID) => {
+    try {
+      const updatedProject = await projectsService.deleteTimeEntry(projectId, entryID);
+
+      const projectsCopy = [...this.state.projects];
+      const newProjects = projectsCopy.map((project) =>
+        project.id === projectId ? updatedProject : project);
+
+      this.setState({projects: newProjects});
+    } catch (error) {
+      console.log('Something went wrong deleting the time entry.', error);
+    }
   }
 
   render() {

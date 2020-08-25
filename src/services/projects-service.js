@@ -7,8 +7,6 @@ const realHost = 'https://nameless-cliffs-27775.herokuapp.com';
 const prepareProjectForDisplay = (project) => {
   if (!project.timeEntries) {
     project.timeEntries = [];
-
-    return project;
   }
 
   return project;
@@ -65,6 +63,14 @@ export const addTimeEntryForProject = async (projectId, timeEntry) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(timeEntry)
+  });
+
+  return response.json();
+};
+
+export const deleteTimeEntry = async (projectId, timeEntryId) => {
+  const response = await fetch(`${localHost}/projects/${projectId}/timeEntries/${timeEntryId}`, {
+    method: 'DELETE'
   });
 
   return response.json();
