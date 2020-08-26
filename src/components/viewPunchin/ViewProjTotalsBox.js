@@ -21,7 +21,7 @@ export default function ViewProjTotalsBox({projectItem}) {
                 <div className='IconCont-TotalsBox' style={{backgroundColor: color}}>
                     <AttachMoneyOutlinedIcon style={{fontSize: '4rem', color: '#fff'}}/>
                 </div>
-                <p className='totalsBoxTxt'>TOTAL PAY | $500.00</p>
+                <p className='totalsBoxTxt'>TOTAL PAY | ${projectItem.totalPay}</p>
             </div>
         </div>
     )

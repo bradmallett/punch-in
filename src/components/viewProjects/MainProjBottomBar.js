@@ -21,7 +21,7 @@ export default function MainProjBottomBar({projectItem}) {
                 <div className='projectBtmIconContain' style={{backgroundColor: color}}>
                     <AttachMoneyOutlinedIcon style={{fontSize: '2rem', color: '#fff'}}/>
                 </div>
-                <p className='projectBtmText'>TOTAL PAY | {totalPay}</p>
+                <p className='projectBtmText'>TOTAL PAY | ${totalPay}</p>
             </div>
         </div> 
     )

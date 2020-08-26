@@ -9,6 +9,11 @@ const prepareProjectForDisplay = (project) => {
     project.timeEntries = [];
   }
 
+  // 0.45000000000000007
+  project.totalPay = `${project.totalPay}`.replace(/(.\d{2})(\d+)/, '$1');
+
+  // TODO: handle case where .10 (ends in zero)
+
   return project;
 };
 
@@ -65,7 +70,9 @@ export const addTimeEntryForProject = async (projectId, timeEntry) => {
     body: JSON.stringify(timeEntry)
   });
 
-  return response.json();
+  const project  = await response.json();
+
+  return prepareProjectForDisplay(project);
 };
 
 export const deleteTimeEntry = async (projectId, timeEntryId) => {

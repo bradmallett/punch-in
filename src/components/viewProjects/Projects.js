@@ -10,7 +10,7 @@ export class Projects extends Component {
                     key={project.id} 
                     projectItem={project} 
                     delProjItem={this.props.delProjItem} 
-                   />
+                />
         ))
     }
 }
