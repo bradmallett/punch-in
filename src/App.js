@@ -139,14 +139,18 @@ class App extends Component {
     }
   }
 
-  addNotes = (id, notes) => {
-    const index = this.state.projects.map((project) => project.id).indexOf(id);
-    const newProj = this.state.projects[index];
-    newProj.notes = notes;
-    const newProjects = [...this.state.projects];
-    newProjects[index] = newProj;
+  addNotes = async (projectId, note) => {
+    try {
+      const updatedProject = await projectsService.addNote(projectId, {note});
 
-    this.setState({ projects: newProjects })
+      const projectsCopy = [...this.state.projects];
+      const newProjects = projectsCopy.map((project) =>
+        project.id === projectId ? updatedProject : project);
+
+      this.setState({projects: newProjects});      
+    } catch (error) {
+      console.log('Failed to update the note.', error);
+    }
   }
 
   delProjItem = async (id) => {

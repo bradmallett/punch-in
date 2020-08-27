@@ -47,7 +47,7 @@ export class TimeEntry extends Component {
                         <div className='colorContainIcon' style={{backgroundColor: color}}>
                             <AttachMoneyOutlinedIcon style={{fontSize: '2rem', color: '#fff'}}/>
                         </div>
-                    <p className='entry-text'>{`$${timeEntryPay}`}</p>
+                    <p className='entry-text'>{`$${timeEntryPay.toFixed(2)}`}</p>
                     </div>
 
                     <div className='entryDelete-contain'>

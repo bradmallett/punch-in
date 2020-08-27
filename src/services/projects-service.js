@@ -1,6 +1,3 @@
-import moment from 'moment';
-import {convertTimeIntoString} from '../helpers';
-
 const localHost = 'http://localhost:8080';
 const realHost = 'https://nameless-cliffs-27775.herokuapp.com';
 
@@ -9,10 +6,7 @@ const prepareProjectForDisplay = (project) => {
     project.timeEntries = [];
   }
 
-  // 0.45000000000000007
   project.totalPay = `${project.totalPay}`.replace(/(.\d{2})(\d+)/, '$1');
-
-  // TODO: handle case where .10 (ends in zero)
 
   return project;
 };
@@ -82,3 +76,17 @@ export const deleteTimeEntry = async (projectId, timeEntryId) => {
 
   return response.json();
 };
+
+export const addNote = async (projectId, note) => {
+  const response = await fetch(`${localHost}/projects/${projectId}/add-note`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(note)
+  });
+
+  const project = await response.json();
+
+  return prepareProjectForDisplay(project);
+}
