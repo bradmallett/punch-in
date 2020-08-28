@@ -1,5 +1,4 @@
 const localHost = 'http://localhost:8080';
-const realHost = 'https://nameless-cliffs-27775.herokuapp.com';
 
 const prepareProjectForDisplay = (project) => {
   if (!project.timeEntries) {
