@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 export default function MainProjTopBar({projectItem, delProjItem}) {
     const {id, color, punchIns} = projectItem;
     const delProjForItem = () => delProjItem(id);
-    
 
     return (
         <div className='projectTopBar'>

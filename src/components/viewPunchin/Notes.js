@@ -2,21 +2,27 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export class Notes extends Component {
-
     state = {
-        notes: this.props.projectItem.notes,
-        notesSaved: true
+        notes: '',
+        notesSaved: false
     }
 
-    onChange = (e) => this.setState( {notes: e.target.value, notesSaved: false} );
-
-    onSubmit = (e) => {
-        e.preventDefault();
-        this.props.addNotes(this.props.projectItem.id,this.state.notes);
-        this.setState({ 
+    componentDidMount() {
+        this.setState({
             notes: this.props.projectItem.notes,
             notesSaved: true
         });
+    }
+
+    onChange = (e) => this.setState({
+        notes: e.target.value,
+        notesSaved: false
+    });
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.props.addNotes(this.props.projectItem.id, this.state.notes);
+        this.setState({notesSaved: true});
     } 
 
 

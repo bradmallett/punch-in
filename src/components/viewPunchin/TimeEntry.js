@@ -7,17 +7,22 @@ import IconButton from '@material-ui/core/IconButton';
 import Zoom from '@material-ui/core/Zoom';
 import Tooltip from '@material-ui/core/Tooltip';
 
-
+import {convertTimeIntoString} from '../../helpers';
 
 export class TimeEntry extends Component {
-
-    
-
     delTimeEntryItem = () => this.props.delTimeEntry(this.props.projID, this.props.entryItem.id);
 
     render() {
-        const {date, timeStart, timeEnd, timeEntryTotal, timeEntryPay} = this.props.entryItem;
-        const {color} = this.props;
+        const {
+            color,
+            entryItem: {
+                date,
+                timeStart,
+                timeEnd,
+                timeEntryTotal,
+                timeEntryPay
+            }
+        } = this.props;
 
         return (
         <div className='punchIns-wrapper'>
@@ -35,14 +40,14 @@ export class TimeEntry extends Component {
                         <div className='colorContainIcon' style={{backgroundColor: color}}>
                             <QueryBuilderOutlinedIcon style={{fontSize: '2rem', color: '#fff'}}/>
                         </div>
-                        <p className='entry-text'>{timeStart} - {timeEnd} | {timeEntryTotal}</p>
+                        <p className='entry-text'>{timeStart} - {timeEnd} | {convertTimeIntoString(timeEntryTotal)}</p>
                     </div>
 
                     <div className='entry-white-contain'>
                         <div className='colorContainIcon' style={{backgroundColor: color}}>
                             <AttachMoneyOutlinedIcon style={{fontSize: '2rem', color: '#fff'}}/>
                         </div>
-                    <p className='entry-text'>{`$${timeEntryPay}`}</p>
+                    <p className='entry-text'>{`$${timeEntryPay.toFixed(2)}`}</p>
                     </div>
 
                     <div className='entryDelete-contain'>

@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
+import {convertTimeIntoString, convertTimeStringToInt} from './helpers';
 import './App.css';
 import Header from './components/Header';
 import Projects from './components/viewProjects/Projects';
 import AddProject from './components/viewProjects/AddProject';
 import PunchInLoop from './components/viewPunchin/PunchInLoop';
-import {fetchProjects} from './services/fetch-projects';
+import * as projectsService from './services/projects-service';
 import moment from 'moment';
-
-
 
 class App extends Component {
 
@@ -26,11 +24,10 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const projects = await fetchProjects();
+    const projects = await projectsService.fetchProjects();
 
     this.setState({projects});
   }
-
 
   startWatch = (id) => {
     const startTimestamp = moment();
@@ -58,89 +55,80 @@ class App extends Component {
             stopwatch: {
               id,
               watchRunning: true,
-              timer: timer,
+              timer,
               startTime: startTime,
               date: startDate,
               timeEntryPay: 0
             }
         }));
     }, 1000);   
-}
+  }
 
+  getEntryPay = (payRate) => {
+    const durationInSeconds = Math.floor(moment.duration(this.state.stopwatch.timer).asSeconds());
+    const timeEntryPay = (durationInSeconds * payRate) / 3600;
 
-getEntryPay = (payRate) => {
-  const myMin = Math.floor(moment.duration(this.state.stopwatch.timer).asSeconds());
-  const timeEntryPay = (payRate / 60) * myMin;
-  const rounded = (Math.round(timeEntryPay * 100) / 100).toFixed(2);
+    return Math.round(timeEntryPay * 100) / 100;
+  }
 
-  return rounded;
-}
+  stopWatch = (projectId, payRate) => {
+    const date = this.state.stopwatch.date;
+    const startTime = this.state.stopwatch.startTime;
+    const stopTime = moment().format('h:mma');
+    const timeEntryPay = this.getEntryPay(payRate);
+    const totalTime = convertTimeStringToInt(this.state.stopwatch.timer);
 
+    this.addTimeEntry(projectId, date, startTime, stopTime, totalTime, timeEntryPay);
+    
+    clearInterval(this.interval);
 
+    this.setState((prevState) => ({
+      ...prevState,
+      stopwatch: {
+        id: '',
+        watchRunning: false,
+        timer: '00:00:00',
+        startTime: null,
+        date: 'no-date',
+        timeEntryPay: 0
+      }
+    }));
+  }
 
-stopWatch = (id, payRate) => {
+  addTimeEntry = async (projectId, date, start, stop, totalTime, totalPay) => {
+    const timeEntry = {
+      date, 
+      timeStart: start, 
+      timeEnd: stop, 
+      timeEntryTotal: totalTime,
+      timeEntryPay: totalPay
+    };
 
-  const date = this.state.stopwatch.date;
-  const startTime = this.state.stopwatch.startTime;
-  const stopTime = moment().format('h:mma');
-  const timeEntryPay = this.getEntryPay(payRate);
-  const totalTime = this.state.stopwatch.timer;
+    try {
+      const updatedProject = await projectsService.addTimeEntryForProject(projectId, timeEntry);
+      const projectsCopy = [...this.state.projects];
+      const alteredProjects = projectsCopy.map((project) => {
+        if (project.id === projectId) {
+          return updatedProject;
+        }
 
-  this.addTimeEntry(id, date, startTime, stopTime, totalTime, timeEntryPay);
-  
-  clearInterval(this.interval);
+        return project;
+      });
 
-  this.setState((prevState) => ({
-    ...prevState,
-    stopwatch: {
-      id: '',
-      watchRunning: false,
-      timer: '00:00:00',
-      startTime: null,
-      date: 'no-date',
-      timeEntryPay: 0
+      this.setState({projects: alteredProjects});
+
+    } catch (error) {
+      console.log('An error occurred adding the time entry.', error);
     }
-  }));
-}
-
-
-
-addTimeEntry = (id, date, start, stop, totalTime, totalPay) => {
-
-  const newProjects = [...this.state.projects];
-  const index = this.state.projects.map((project) => project.id).indexOf(id);
-  const newProj = this.state.projects[index];
-  const newTimeEntry = {
-    id: uuidv4(),
-    date, 
-    timeStart: start, 
-    timeEnd: stop, 
-    timeEntryTotal: totalTime, 
-    timeEntryPay: totalPay
   }
 
-  newProj.timeEntries = [newTimeEntry, ...newProj.timeEntries];
-  newProj.punchIns = newProj.timeEntries.length;
-  newProjects[index] = newProj;
-  this.setState({ projects: newProjects })
-}
+  addProject = async (title, payRate, color) => {
+    const addedProject = await projectsService.addProject(title, payRate, color);
 
-
-
-  addProject = (title, payRate, color) => {
-    this.setState({ projects: [{
-      id: uuidv4(),
-      title,
-      payRate,
-      color,
-      punchIns: 0,
-      totalTime: '00:00:00',
-      totalPay: 0,
-      notes: '',
-      timeEntries: []
-    }, ...this.state.projects] }) 
+    this.setState((prevState) => ({
+      projects: [addedProject, ...prevState.projects]
+    }));
   }
-
 
   noProjStyle = () => {
     return {
@@ -151,37 +139,46 @@ addTimeEntry = (id, date, start, stop, totalTime, totalPay) => {
     }
   }
 
+  addNotes = async (projectId, note) => {
+    try {
+      const updatedProject = await projectsService.addNote(projectId, {note});
 
-  addNotes = (id, notes) => {
-    const index = this.state.projects.map((project) => project.id).indexOf(id);
-    const newProj = this.state.projects[index];
-    newProj.notes = notes;
-    const newProjects = [...this.state.projects];
-    newProjects[index] = newProj;
+      const projectsCopy = [...this.state.projects];
+      const newProjects = projectsCopy.map((project) =>
+        project.id === projectId ? updatedProject : project);
 
-    this.setState({ projects: newProjects })
+      this.setState({projects: newProjects});      
+    } catch (error) {
+      console.log('Failed to update the note.', error);
+    }
   }
 
+  delProjItem = async (id) => {
+    try {
+      await projectsService.deleteProject(id);
 
+      const projectsCopy = [...this.state.projects];
+      const updatedProjects = projectsCopy.filter((project) => project.id !== id);
 
-  delProjItem = (id) => {
-    this.setState({ projects: [...this.state.projects
-      .filter((project) => project.id !== id ) ]} 
-    )
+      this.setState({projects: updatedProjects});
+    } catch (err) {
+      console.log('Failed to delete the project from the server.', err);
+    }
   }
 
+  delTimeEntry = async (projectId, entryID) => {
+    try {
+      const updatedProject = await projectsService.deleteTimeEntry(projectId, entryID);
 
-  delTimeEntry = (projID, entryID) => {
-    const newProjects = [...this.state.projects];
-    const index = this.state.projects.map((project) => project.id).indexOf(projID);
-    const newProj = newProjects[index];
-    const newEntries = newProj.timeEntries.filter(entry => entry.id !== entryID);
-   
-    newProj.timeEntries = newEntries;
-    newProjects[index] = newProj;
-    this.setState({ projects: newProjects })
+      const projectsCopy = [...this.state.projects];
+      const newProjects = projectsCopy.map((project) =>
+        project.id === projectId ? updatedProject : project);
+
+      this.setState({projects: newProjects});
+    } catch (error) {
+      console.log('Something went wrong deleting the time entry.', error);
+    }
   }
-
 
   render() {
   return (
