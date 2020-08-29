@@ -1,4 +1,4 @@
-const localHost = 'http://localhost:8080';
+const host = process.env.HOST || 'http://localhost:8080';
 
 const prepareProjectForDisplay = (project) => {
   if (!project.timeEntries) {
@@ -15,7 +15,7 @@ const sanitizeProjects = (projects) =>
 
 export const fetchProjects = async () => {
   try {
-    const response = await fetch(`${localHost}/projects`);
+    const response = await fetch(`${host}/projects`);
     const projects = await response.json();
 
     return sanitizeProjects(projects);
@@ -35,7 +35,7 @@ export const addProject = async (title, payRate, color) => {
         notes: ""
     };
 
-    const response = await fetch(`${localHost}/add-project`, {
+    const response = await fetch(`${host}/add-project`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -49,13 +49,13 @@ export const addProject = async (title, payRate, color) => {
 };
 
 export const deleteProject = async (id) => {
-  await fetch(`${localHost}/projects/${id}`, {
+  await fetch(`${host}/projects/${id}`, {
     method: 'DELETE'
   });
 };
 
 export const addTimeEntryForProject = async (projectId, timeEntry) => {
-  const response = await fetch(`${localHost}/projects/${projectId}/add-time-entry`, {
+  const response = await fetch(`${host}/projects/${projectId}/add-time-entry`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -69,7 +69,7 @@ export const addTimeEntryForProject = async (projectId, timeEntry) => {
 };
 
 export const deleteTimeEntry = async (projectId, timeEntryId) => {
-  const response = await fetch(`${localHost}/projects/${projectId}/timeEntries/${timeEntryId}`, {
+  const response = await fetch(`${host}/projects/${projectId}/timeEntries/${timeEntryId}`, {
     method: 'DELETE'
   });
 
@@ -77,7 +77,7 @@ export const deleteTimeEntry = async (projectId, timeEntryId) => {
 };
 
 export const addNote = async (projectId, note) => {
-  const response = await fetch(`${localHost}/projects/${projectId}/add-note`, {
+  const response = await fetch(`${host}/projects/${projectId}/add-note`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
