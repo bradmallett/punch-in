@@ -1,4 +1,4 @@
-const host = process.env.HOST || 'http://localhost:8080';
+const host = 'https://nameless-cliffs-27775.herokuapp.com';
 
 const prepareProjectForDisplay = (project) => {
   if (!project.timeEntries) {
